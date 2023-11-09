@@ -13,5 +13,15 @@ Optional file where we can put any helper code. Doesn't have to be called any sp
 ### requirements.txt
 This is a file for Python environments to be able to easily set up your requirements. For example, our current requirements are Flask, requests (useful for HTTP request helpers), gunicorn (I think I might need it for hosting the app online)
 
+So if you want to be able to run our backend on your local machine, you would first do: 
+
+`pip install -r requirements.txt` 
+
+in your terminal/command prompt/powershell/etc.. This would install all those python libraries listed in requirements.txt on your laptop.
+
+You could also create a virtual environment to install all this stuff in a folder specific to this project rather than on your whole laptop's system. But this is optional ...
+
+This is the way you can do it through terminal/command line if you are using Visual Studio Code or Eclipse or something. There is probably an easier way to install python requirements in PyCharm IDE if you are using that but could probably still do the same thing i'm just not sure how. 
+
 ### Static and Template
 These folders are usually present in Flask projects for storing HTML/CSS/JavaScript, but we probably won't be needing them since we are doing a separate React frontend. We can probably delete them later.
