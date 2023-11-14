@@ -5,7 +5,8 @@ Flask-Cors==4.0.0
 
 gunicorn==20.0.4
 requests==2.31.0
-charset-normalizer==3.3.2aniso8601==9.0.1
+charset-normalizer==3.3.2
+aniso8601==9.0.1
 asgiref==3.6.0
 astroid==2.11.6
 asttokens==2.0.5
