@@ -9,7 +9,8 @@
 /coverage
 
 # production
-#/build         # Comment this out for deployment
+#### COMMENT THIS OUT FOR DEPLOYMENT
+/build
 
 # misc
 .DS_Store

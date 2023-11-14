@@ -7,8 +7,8 @@ function App() {
 
   useEffect(()=> {
     axios
-        /*.get('http://localhost:5000/flask/hello')*/                       // TODO: toggle this for development
-        .get('https://group-16-9bd3630a5775.herokuapp.com/flask/hello') // TODO: toggle this for deployment
+        .get('http://localhost:5000/flask/hello')                       // This for development
+        /*.get('https://group-16-9bd3630a5775.herokuapp.com/flask/hello')*/ // This for deployment
         .then(response => {
             console.log("SUCCESS", response)
             setMessage(response)
