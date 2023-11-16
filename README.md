@@ -1,7 +1,8 @@
 # Deploy to Heroku
+<img src="resources/img.png"  width="400" height="400">
 
 ### Requirements (Only first time)
-* On the invitation email click *Accept Invitation* and create a Heroku account.
+* On the invitation email I sent you click *Accept Invitation* and create a Heroku account.
   * You will probably need to enable two-factor authentication with Salesforce Authenticator
 * Download Heroku CLI from https://devcenter.heroku.com/articles/heroku-cli
   * You will be prompted to access your Heroku account.
@@ -23,6 +24,9 @@
   * So do `commit` and `add` as needed
 * Run `git push heroku your-branch-name:master`
   * This will take a bit. If you see there is no error the app should be deployed.
+
+### Put back to development
+* Once you are done, remember to change back the lines for development.
 
 
 # backend
