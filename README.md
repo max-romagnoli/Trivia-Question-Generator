@@ -1,3 +1,14 @@
+# Start backend
+
+### Requirements (Only first time)
+* Install Heroku by running `pip install -r requirements.txt`
+  * If you are on Mac you might need to run `pip3 install -r requirements.txt`
+* Restart VS Code
+
+### Run Flask
+* To start the backend do `flask run`
+
+
 # Deploy to Heroku
 <img src="resources/img.png"  width="400" height="400">
 
@@ -29,9 +40,8 @@
 * Once you are done, remember to change back the lines for development.
 
 
-# backend
 
-## Explanation of Files
+# Explanation of Backend Files
 
 ### app.py
 Kind of the equivalent to a Controller in Java Spring.
