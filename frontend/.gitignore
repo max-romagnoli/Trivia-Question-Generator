@@ -10,7 +10,7 @@
 
 # production
 #### COMMENT THIS OUT FOR DEPLOYMENT
-/build
+# /build
 
 # misc
 .DS_Store
