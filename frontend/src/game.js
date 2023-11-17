@@ -59,7 +59,6 @@ export default function Game({setObjectBoard}){
       <header className="App-header">
         <h1>TRIVIA GAME</h1>
         {isRunning ? gamePage : gameEndPage}
-        
       </header>
   )
 }
