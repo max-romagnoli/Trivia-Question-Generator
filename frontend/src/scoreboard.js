@@ -8,7 +8,14 @@ export default function Scoreboard({objectBoard}){
     if(objectBoard===0){
       return(<></>)
     }
-    return <>{JSON.stringify(objectBoard)}</>
+    console.log("e")
+    console.log(objectBoard.players[0].name)
+    return <>{objectBoard.players.map((player, index) => (
+      <div key={index}>
+        <span>{player.name}: </span>
+        <span>{player.score}</span>
+      </div>
+    ))}</>
   }
   return(
     <div className='scoreboard'>
