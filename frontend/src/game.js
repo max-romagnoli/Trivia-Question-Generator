@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 //install react-router-dom
 export default function Game({setObjectBoard}){
   //data struct to store and get player data
-
+  
   const [counter, setCounter] = useState(1)
   const [answer, setAnswer] = useState('')
   const [isRunning,setIsRunning]=useState(true)
@@ -35,6 +35,7 @@ export default function Game({setObjectBoard}){
       // Push newScore into the players array
       retrievedLeaderboard.players.push(newScore);
       // Store the updated data back into localStorage
+      setObjectBoard(retrievedLeaderboard)
       localStorage.setItem('players', JSON.stringify(retrievedLeaderboard));
       setCounter(prev=>1)
     }

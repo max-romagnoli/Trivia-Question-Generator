@@ -4,11 +4,16 @@ import './scoreboard.css';
 export default function Scoreboard({objectBoard}){
 
   console.log("rerender")
+  function renderObjectBoard(){
+    if(objectBoard===0){
+      return(<></>)
+    }
+    return <>{JSON.stringify(objectBoard)}</>
+  }
   return(
     <div className='scoreboard'>
     <p1>Highscores</p1>
-    <p>{JSON.stringify(objectBoard[0])}</p>
-    <p>{JSON.stringify(objectBoard)}</p>
+    <>{renderObjectBoard()}</>
     </div>
   )
 }

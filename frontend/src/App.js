@@ -16,7 +16,10 @@ function App() {
   //      })
   //      .catch(error => { console.log(error) })
   //}, [])  *
-  const [objectBoard,setObjectBoard]=useState([{"name" : "John", "score": 30}]);
+  useEffect(() => {
+    localStorage.clear();
+  },[])
+  const [objectBoard,setObjectBoard]=useState(0);
   console.log(objectBoard)
   return (
     <div className="App">
