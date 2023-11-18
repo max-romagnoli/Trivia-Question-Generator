@@ -3,10 +3,15 @@ from flask import Flask, jsonify, request, session, send_from_directory
 from flask_restful import Api
 from flask_cors import CORS
 from flask_session import Session
+from tempfile import mkdtemp
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')
 CORS(app)
-sess = Session()
+# Config for session to use tempfiles so we don't need to have an api key
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_FILE_DIR"] = mkdtemp()
+Session(app)
 api = Api(app)
 
 
@@ -36,10 +41,4 @@ def get_user():
     return jsonify({"Name": name})
 
 if __name__ == '__main__':
-    app.secret_key = 'key'
-    app.config['SESSION_TYPE'] = 'filesystem'
-
-    sess.init_app(app)
-
-    app.debug = True
     app.run()
