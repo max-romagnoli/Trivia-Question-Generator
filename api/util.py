@@ -10,7 +10,7 @@ class UrlConst(Enum):
     DB_HOST                   = ""
 
 
-def get_random_trivia_q() -> Dict[str, Union[str, int]]:
+def get_random_trivia_q() -> Dict[str, list] | None:
     try:
         response = requests.get(
             UrlConst.TRIVIA_API_BASE.value + 
