@@ -9,6 +9,10 @@ class LoginResource(Resource):
             data = request.get_json()
             name = data.get('Name', '')
 
+            # Check if the 'Name' field is blank
+            if not name:
+                return {"error": "Name cannot be blank"}, 400
+            
             # Store the name in the session
             session['Name'] = name
 
@@ -22,3 +26,6 @@ class GetUserResource(Resource):
         # Retrieve the name from the session
         name = session.get('Name', '')
         return {"Name": name}
+    
+    
+
