@@ -1,3 +1,4 @@
+import * as config from './index.js'
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
@@ -7,8 +8,7 @@ function App() {
 
   useEffect(()=> {
     axios
-        .get('http://127.0.0.1:5000/flask/hello')                       // This for development
-        /*.get('https://group-16-9bd3630a5775.herokuapp.com/flask/hello')*/ // This for deployment
+        .get( config.BACKEND_ADDRESS + "/flask/hello")                       // This for development
         .then(response => {
             console.log("SUCCESS", response)
             setMessage(response)
