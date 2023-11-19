@@ -6,4 +6,4 @@ class HelloApiHandler(Resource):
         return {
             'response': "SUCCESS",
             'message': "Hello World!"
-        }
+        }, 200
