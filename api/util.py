@@ -1,4 +1,4 @@
-from typing import Dict, Union
+from typing import Dict, List, Union
 import requests
 from enum import Enum, auto
 
@@ -10,7 +10,7 @@ class UrlConst(Enum):
     DB_HOST                   = ""
 
 
-def get_random_trivia_q() -> Dict[str, list] | None:
+def get_random_trivia_q() -> Dict[str, List[Dict[str, Union[str, int]]]]:
     try:
         response = requests.get(
             UrlConst.TRIVIA_API_BASE.value + 
