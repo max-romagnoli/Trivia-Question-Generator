@@ -14,7 +14,17 @@ class highScoresHandler(Resource):
             'response': "SUCCESS",
             'highscore': highscore_value
           }
-    
+
+"""
+    the format of the highscores most likely wont be like this:
+    {
+            'response': response_value,
+            'highscore': highscore_value
+    }
+
+    But it should be straight forward enough to change the post function
+
+"""
 class highScoreApiHandler(Resource):
 
     def post(self):
