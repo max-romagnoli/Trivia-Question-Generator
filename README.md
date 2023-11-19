@@ -23,6 +23,8 @@
   * You will be prompted to access your Heroku account.
 * Make sure Heroku is in your PATH by running `heroku --version`
   * Note: you might need to restart your IDE after installing Heroku
+* Run `heroku git:remote -a group-16`
+  * Connects your local repo to the remote hosted in Heroku
 
 ### Build React app
 * First change the following lines:
@@ -33,8 +35,6 @@
   * In `app.py Line 3 & 7` > Comment out CORS
 * Generate build files for production using `npm run build`
   * This will basically pack the React application for production so that it can be retrieved by the backend when deployed
-* Run `heroku git:remote -a group-16`
-  * Connects your local repo to the remote hosted in Heroku
 * IMPORTANT: commit all changes you want to be deployed before pushing
   * So do `commit` and `add` as needed
 * Run `git push heroku your-branch-name:master`
