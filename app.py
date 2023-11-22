@@ -17,5 +17,5 @@ def serve(path):
 
 api.add_resource(HelloApiHandler, '/flask/hello')
 api.add_resource(highScoresHandler, '/highscores')
-api.add_resource(highScoreApiHandler, '/highscores')
+
 
