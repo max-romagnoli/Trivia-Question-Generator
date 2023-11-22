@@ -1,18 +1,26 @@
 body {
   background-color: rgb(56, 56, 101);
   color: #ffffff;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Use the full height of the viewport */
+  
 }
 .App {
   display: flex;
 }
 
 .left-side {
-  width: 30%;
+  width: 10%;
   margin: auto;
-  width: 50%;
   padding: 10px;
 }
 
 .right-side {
-  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+
 }

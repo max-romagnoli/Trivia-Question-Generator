@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import './game.css';
+
+
 //install react-router-dom
 export default function Game({setObjectBoard}){
   //data struct to store and get player data
@@ -45,14 +48,14 @@ export default function Game({setObjectBoard}){
     <div>
       <h1>Question {counter}, Current score: {counter-1}</h1>
       <h2>{question}</h2> 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChange}/>     
         <input type="submit" value="Submit" />
       </form>
     </div>
   )
   const gameEndPage=(<div>
-    <p1>noob?, get good?</p1>
+    <p1> giga noob?, get good?</p1>
     <button onClick={changeisRunning}> retry?</button>    
     </div>)
   return(

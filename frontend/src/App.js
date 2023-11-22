@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <div className="left-side">
-        <Scoreboard objectBoard={objectBoard}/>
+          <Scoreboard objectBoard={objectBoard}/>
       </div>
       <div className="right-side">
         <Game setObjectBoard={setObjectBoard}/>
