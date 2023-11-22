@@ -1,3 +1,4 @@
+import * as config from './index.js'
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
@@ -5,6 +6,15 @@ import Scoreboard from './scoreboard';
 import Game from './game';
 function App() {
 
+  useEffect(()=> {
+    axios
+        .get( config.BACKEND_ADDRESS + "/flask/hello")                       // This for development
+        .then(response => {
+            console.log("SUCCESS", response)
+            setMessage(response)
+        })
+        .catch(error => { console.log(error) })
+  }, [])
 
   //useEffect(()=> {
   //  axios
