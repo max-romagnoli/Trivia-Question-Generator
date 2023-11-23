@@ -2,9 +2,9 @@ import * as config from './index.js'
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios'
-
+import Scoreboard from './scoreboard';
+import Game from './game';
 function App() {
-  const [message, setMessage] = useState({})
 
   useEffect(()=> {
     axios
@@ -16,20 +16,31 @@ function App() {
         .catch(error => { console.log(error) })
   }, [])
 
+  //useEffect(()=> {
+  //  axios
+  //      .get('http://localhost:5000/flask/hello')                       // This for development
+  //      /*.get('https://group-16-9bd3630a5775.herokuapp.com/flask/hello')*/ // This for deployment
+  //      .then(response => {
+  //          console.log("SUCCESS", response)
+  //          setMessage(response)
+  //      })
+  //      .catch(error => { console.log(error) })
+  //}, [])  *
+  useEffect(() => {
+    localStorage.clear();
+  },[])
+  const [objectBoard,setObjectBoard]=useState(0);
+  console.log(objectBoard)
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>TRIVIA GAME</h1>
-        <div>
-          {
-            message.status === 200
-            ? <h3>{message.data.message}</h3>
-            : <h3>LOADING...</h3>
-          }
-        </div>
-      </header>
+      <div className="left-side">
+          <Scoreboard objectBoard={objectBoard}/>
+      </div>
+      <div className="right-side">
+        <Game setObjectBoard={setObjectBoard}/>
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
