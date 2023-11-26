@@ -5,16 +5,16 @@ import axios from 'axios'
 import Scoreboard from './scoreboard';
 import Game from './game';
 function App() {
-  const [message,setMessage]=useState()
-  useEffect(()=> {
-    axios
-        .get( config.BACKEND_ADDRESS + "/flask/hello")                       // This for development
-        .then(response => {
-            console.log("SUCCESS", response)
-            setMessage(response)
-        })
-        .catch(error => { console.log(error) })
-  }, [])
+  //const [message,setMessage]=useState()
+  //useEffect(()=> {
+  //  axios
+  //      .get( config.BACKEND_ADDRESS + "/flask/hello")                       // This for development
+  //      .then(response => {
+  //          console.log("SUCCESS", response)
+  //          setMessage(response)
+  //      })
+  //      .catch(error => { console.log(error) })
+  //}, [])
 
   //useEffect(()=> {
   //  axios
@@ -26,11 +26,8 @@ function App() {
   //      })
   //      .catch(error => { console.log(error) })
   //}, [])  *
-  useEffect(() => {
-    localStorage.clear();
-  },[])
+
   const [objectBoard,setObjectBoard]=useState(0);
-  console.log(objectBoard)
   return (
     <div className="App">
       <div className="left-side">

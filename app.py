@@ -6,8 +6,8 @@ if platform == "darwin":
     from .api.HelloApiHandler import HelloApiHandler
     from .api.TriviaApiHandler import TriviaApiHandler
 else:
-    from api.HelloApiHandler import HelloApiHandler
-    from api.TriviaApiHandler import TriviaApiHandler
+    from .api.HelloApiHandler import HelloApiHandler
+    from .api.TriviaApiHandler import TriviaApiHandler
 
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')  # add ref to frontend subdirectory
 CORS(app)  # Comment out for deployment

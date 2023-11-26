@@ -3,12 +3,10 @@ import './scoreboard.css';
 
 export default function Scoreboard({objectBoard}){
 
-  console.log("rerender")
   function renderObjectBoard(){
     if(objectBoard===0){
       return(<></>)
     }
-    console.log("e")
     console.log(objectBoard.players[0].name)
     return <>{objectBoard.players.map((player, index) => (
       <div key={index}>
