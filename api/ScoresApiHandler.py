@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from typing import Tuple, Dict
 
 
 class ScoresApiHandler(Resource):
@@ -7,7 +8,7 @@ class ScoresApiHandler(Resource):
         # TODO: @Oisìn
         pass
 
-    def post(self) -> tuple[dict, int]:
+    def post(self) -> Tuple[Dict[str,str], int]:
         data = request.get_json()
         username = data.get('username')
         score_value = data.get('value')
