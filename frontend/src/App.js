@@ -5,7 +5,7 @@ import axios from 'axios'
 import Scoreboard from './scoreboard';
 import Game from './game';
 function App() {
-
+  const [message,setMessage]=useState()
   useEffect(()=> {
     axios
         .get( config.BACKEND_ADDRESS + "/flask/hello")                       // This for development
