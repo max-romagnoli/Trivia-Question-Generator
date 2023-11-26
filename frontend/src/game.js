@@ -13,15 +13,16 @@ export default function Game({setObjectBoard}){
   const [question, setQuestion] = useState('')
   const [gameState,setgameState]=useState(0)
   const [rightAnswer,setRightAnswer]=useState()
+  const [score,setScore]=useState(0)
+  const [questionValue, setQuestionValue]=useState(0)
+  let worth=0
   const handleChangeAnswer = (event) => {
     setAnswer(event.target.value);
   };
   const handleChangeName = (event) => {
     setName(event.target.value);
   };
-  function changegameState(){
-    setgameState(prev=>!prev)
-  }
+
 //  useEffect(() => {
 //    localStorage.clear();
 //    fetch('http://localhost:5000/triviaquestion')
@@ -36,12 +37,14 @@ export default function Game({setObjectBoard}){
 //  }, []);
 
   const handleSubmit = (event) => {
+      setAnswer("")
       fetch('http://localhost:5000/triviaquestion')
         .then(response => response.json())
         .then(data => {
           setQuestion(data.triviaQuestion[0].question); 
           setRightAnswer(data.triviaQuestion[0].answer);
           console.log(data.triviaQuestion[0].answer)
+          setQuestionValue(data.triviaQuestion[0].value)
         })
         .catch(error => console.error(error))
     if(gameState===0){
@@ -52,11 +55,12 @@ export default function Game({setObjectBoard}){
       console.log("answer"+answer)
       console.log("rightAnswer"+rightAnswer)
       if(answer===rightAnswer){
+        setScore(prev=>prev+questionValue)
         setCounter(prev=>prev+1)
         
       }else{
         setgameState(2)
-        let newScore = {name: name, score: counter-1};
+        let newScore = {name: name, score: score};
         let retrievedLeaderboard;
 
         if (localStorage.getItem('players') === null) {
@@ -80,7 +84,7 @@ export default function Game({setObjectBoard}){
   const gamePage=(
     <div>
       <h1>Question {counter}, Current score: {counter-1}</h1>
-      <h2>{question}</h2> 
+      <h2>{question+"("+questionValue+")"}</h2> 
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChangeAnswer}/>     
         <input type="submit" value="Submit" />
@@ -96,9 +100,10 @@ export default function Game({setObjectBoard}){
       </form>
     </div>
   )
-  const gameEndPage=(<div>
-    <p1> giga noob?, get good?</p1>
-    <button onClick={()=>setgameState(1)}> retry?</button>    
+  const gameEndPage=(
+    <div>
+      <p1> giga noob?, get good?</p1>
+      <button onClick={()=>setgameState(1)}> retry?</button>    
     </div>)
   return(
       <header className="App-header">
