@@ -17,5 +17,4 @@ def test_post_scores(client):
 
 def test_get_scores(client):
     # TODO: @Oisìn
-    from ..models import Score
-    print("\nALL SCORES: ", list(Score.query.all()))
+    pass
