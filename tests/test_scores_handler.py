@@ -1,7 +1,11 @@
 from .conftest import client
+from unittest.mock import MagicMock
+from .. import app
 
 
 def test_post_scores(client):
+    mocked_db = MagicMock()
+    app.db = mocked_db
     req_body = {
         'username': 'ciao27',
         'value': 1000
@@ -13,4 +17,5 @@ def test_post_scores(client):
 
 def test_get_scores(client):
     # TODO: @Oisìn
-    pass
+    from ..models import Score
+    print("\nALL SCORES: ", list(Score.query.all()))
