@@ -77,6 +77,7 @@ export default function Game({setObjectBoard}){
         setObjectBoard(retrievedLeaderboard)
         localStorage.setItem('players', JSON.stringify(retrievedLeaderboard));
         setCounter(prev=>1)
+        setScore(0)
       }
     }
     event.preventDefault();
