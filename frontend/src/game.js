@@ -4,8 +4,9 @@ import axios from 'axios'
 import CurrentScore from './currentScore';
 
 export default function Game({ setObjectBoard, onGameStateChange }) {
+  
   const [style, setStyle] = useState({
-    fontSize: '6em',
+    //fontSize: '8em',
     color: 'white',
     textShadow: '0 0 10px white',
     //border: '2px solid white',
@@ -16,7 +17,6 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
     const interval = setInterval(() => {
 
       setStyle((prevStyle) => ({
-        fontSize: prevStyle.fontSize === '6em' ? '6em' : '6em',
         color: prevStyle.color === '#8e3dff' ? 'white' : '#8e3dff',
         textShadow: prevStyle.textShadow === '0 0 10px #8e3dff' ? '0 0 10px white' : '0 0 10px #8e3dff',
         fontStyle: prevStyle.fontStyle === 'italic' ? 'italic' : 'italic', // Toggle between italic and normal
@@ -144,6 +144,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
   
   const gameEndPage = (
     <div className="game-container">
+       <br />
       <div className="wrong-box">
         <h2>
         Wrong Answer
@@ -152,14 +153,14 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
       <h3>
         <br />
         You've made Steve upset :(
-        <br />
       </h3>
     </div>
+    <br />
 
       <h2>  
         Start a new game?
+        </h2>      
         <br />
-        </h2>
       <button onClick={() => {
         setgameState(1);
         onGameStateChange(1);
