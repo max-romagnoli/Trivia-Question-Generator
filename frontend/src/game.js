@@ -55,8 +55,6 @@ export default function Game({setObjectBoard}){
   }
   const handleSubmit = (event) => {
       setAnswer("")
-      //127.0.0.1:5000 --> for mac
-      //localhost:5000 --> for windows
       fetch(config.BACKEND_ADDRESS + '/triviaquestion')
         .then(response => response.json())
         .then(data => {
