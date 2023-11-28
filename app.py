@@ -7,7 +7,7 @@ try:
     from .api.HelloApiHandler import HelloApiHandler
     from .api.TriviaApiHandler import TriviaApiHandler
     from .api.ScoresApiHandler import ScoresApiHandler
-except:
+except ImportError:
     from api.HelloApiHandler import HelloApiHandler
     from api.TriviaApiHandler import TriviaApiHandler
     from api.ScoresApiHandler import ScoresApiHandler

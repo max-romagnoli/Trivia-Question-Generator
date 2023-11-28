@@ -1,6 +1,6 @@
 try:
     from app import db
-except:
+except ImportError:
     from .app import db
 from datetime import datetime
 

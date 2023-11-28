@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 try:
     from .conftest import client
     from .. import app
-except:
+except ImportError:
     from conftest import client
     import app
 

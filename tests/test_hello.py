@@ -1,6 +1,6 @@
 try:
     from .conftest import client
-except:
+except ImportError:
     from conftest import client
 
 def test_hello(client):
