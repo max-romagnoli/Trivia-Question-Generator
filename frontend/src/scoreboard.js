@@ -7,8 +7,11 @@ export default function Scoreboard({objectBoard}){
     if(objectBoard===0){
       return(<></>)
     }
+    // Reverse the array to display newest highscores first
+    const reversedPlayers = objectBoard.players.slice().reverse();
+
     console.log(objectBoard.players[0].name)
-    return <>{objectBoard.players.map((player, index) => (
+    return <>{reversedPlayers.map((player, index) => (
       <div key={index}>
         <span>{player.name}: </span>
         <span>{player.score}</span>
