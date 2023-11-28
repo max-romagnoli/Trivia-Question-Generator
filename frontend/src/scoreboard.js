@@ -20,7 +20,11 @@ export default function Scoreboard({objectBoard}){
   }
   return(
     <div className='scoreboard'>
-    <p1>Highscores</p1>
+    <p1>High Scores
+    <br />
+    <br />
+
+    </p1>
     <>{renderObjectBoard()}</>
     </div>
   )

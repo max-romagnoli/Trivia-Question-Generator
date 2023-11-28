@@ -52,8 +52,8 @@ export default function Game({setObjectBoard}){
       setgameState(1)
     }
     if(gameState===1){    
-      console.log("answer"+answer)
-      console.log("rightAnswer"+rightAnswer)
+      console.log("Answer Given: "+answer)
+      console.log("The Right Answer: '"+rightAnswer +"'")
       if(answer===rightAnswer){
         setScore(prev=>prev+questionValue)
         setCounter(prev=>prev+1)
@@ -82,30 +82,43 @@ export default function Game({setObjectBoard}){
     }
     event.preventDefault();
   };
-  const gamePage=(
-    <div>
-      <h1>Question {counter}, Current score: {counter-1}</h1>
-      <h2>{question+"("+questionValue+")"}</h2> 
+  const gamePage = (
+    <div className="game-container">
+      <h2>
+        Question {counter}
+        <br />
+        Current score: {counter - 1}
+      </h2>
+      <h2>{question + "(" + questionValue + ")"}</h2>
       <form onSubmit={handleSubmit} className="forms">
-        <input type="text" value={answer} onChange={handleChangeAnswer}/>     
+        <input type="text" value={answer} onChange={handleChangeAnswer} />
         <input type="submit" value="Submit" />
       </form>
     </div>
   )
-  const loginPage=(
-    <div>
-      <h2>Add meg a neved:</h2>
+  
+  const loginPage = (
+    <div className="game-container">
+      <h2>What is your username?:</h2>
       <form onSubmit={handleSubmit} className="forms">
-          <input type="text" value={name} onChange={handleChangeName}/>     
-          <input type="submit" value="Submit" />
+        <input type="text" value={name} onChange={handleChangeName} />
+        <input type="submit" value="Submit" />
       </form>
     </div>
   )
-  const gameEndPage=(
-    <div>
-      <p1> giga noob?, get good?</p1>
-      <button onClick={()=>setgameState(1)}> retry?</button>    
-    </div>)
+  
+  const gameEndPage = (
+    <div className="game-container">
+      <h2>
+        Wrong Answer :(
+        <br />
+        Start a new game?
+        <br />
+        <br />
+      </h2>
+      <button onClick={() => setgameState(1)}>retry?</button>
+    </div>
+  )
   return(
       <header className="App-header">
         <h1>TRIVIA GAME</h1>
