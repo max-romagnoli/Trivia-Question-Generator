@@ -12,16 +12,18 @@ body {
 }
 
 .left-side {
-  width: 25%;
-  /*margin: auto;*/
+  width: 20%;
+  padding: 10px;
+}
+
+.middle-section {
+  flex: 1; /* Take remaining space */
   padding: 10px;
 }
 
 .right-side {
+  width: 20%;
+  padding: 10px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70%;
-  
-
+  justify-content: flex-end; /* Align content to the right */
 }

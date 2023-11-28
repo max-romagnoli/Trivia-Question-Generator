@@ -29,4 +29,26 @@
   .forms {
     margin-top: 20px;
   }
+
+  .game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .question-box {
+    background-color: #8e3dff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 4px solid #ffffff; /* Add a border for separation */
+    border-radius: 15px; /* Optional: Add rounded corners */
+    padding: 15px;
+  }
+  
+  .question-box h2 {
+    font-size: 2em;
+    color: white;
+    margin: 0;
+  }
   

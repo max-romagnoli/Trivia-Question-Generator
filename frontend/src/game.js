@@ -1,12 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import './game.css';
 import axios from 'axios'
+import CurrentScore from './currentScore';
 
+export default function Game({ setObjectBoard }) {
+  const [style, setStyle] = useState({
+    fontSize: '6em',
+    color: 'white',
+    textShadow: '0 0 10px white',
+    //border: '2px solid white',
+    fontStyle: 'italic', // Added this line to set the initial font style
+  });
+  useEffect(() => {
+    // Start the flashing interval
+    const interval = setInterval(() => {
 
-//install react-router-dom
-export default function Game({setObjectBoard}){
-  //data struct to store and get player data
-  
+      setStyle((prevStyle) => ({
+        fontSize: prevStyle.fontSize === '6em' ? '6em' : '6em',
+        color: prevStyle.color === '#8e3dff' ? 'white' : '#8e3dff',
+        textShadow: prevStyle.textShadow === '0 0 10px #8e3dff' ? '0 0 10px white' : '0 0 10px #8e3dff',
+        fontStyle: prevStyle.fontStyle === 'italic' ? 'italic' : 'italic', // Toggle between italic and normal
+
+      }))
+    }, 900);
+
+    // Cleanup: Clear the interval when the component is unmounted
+    return () => clearInterval(interval);
+  }, [])
+
   const [counter, setCounter] = useState(1)
   const [answer, setAnswer] = useState('')
   const [name,setName]=useState('')
@@ -86,22 +107,26 @@ export default function Game({setObjectBoard}){
   };
   const gamePage = (
     <div className="game-container">
-      <h2>
-        Question {counter}
-        <br />
-        Current score: {counter - 1}
-      </h2>
+      <div className="question-box">
+        <h2>
+          Question {counter}
+        </h2>
+      </div>
       <h2>{question + "(" + questionValue + ")"}</h2>
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChangeAnswer} />
         <input type="submit" value="Submit" />
       </form>
+      <br />
+      <br />
+
+      <CurrentScore counter={counter} />
     </div>
-  )
+  );
   
   const loginPage = (
     <div className="game-container">
-      <h2>What is your username?:</h2>
+      <h2>What is your username:</h2>
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={name} onChange={handleChangeName} />
         <input type="submit" value="Submit" />
@@ -112,7 +137,7 @@ export default function Game({setObjectBoard}){
   const gameEndPage = (
     <div className="game-container">
       <h2>
-        Wrong Answer :(
+        Wrong Answer
         <br />
         Start a new game?
         <br />
@@ -123,8 +148,9 @@ export default function Game({setObjectBoard}){
   )
   return(
       <header className="App-header">
-        <h1>TRIVIA GAME</h1>
+        <h1 style={style}>TRIVIA GAME</h1>
         {gameState === 0 ? loginPage  : gameState === 1 ? gamePage  : gameEndPage }
+
       </header>
   )
 }

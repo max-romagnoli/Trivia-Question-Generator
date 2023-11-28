@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import Scoreboard from './scoreboard';
 import Game from './game';
+import CurrentScore from './currentScore';
+
 function App() {
   //const [message,setMessage]=useState()
   //useEffect(()=> {
@@ -33,8 +35,10 @@ function App() {
       <div className="left-side">
           <Scoreboard objectBoard={objectBoard}/>
       </div>
-      <div className="right-side">
+      <div className="middle-section">
         <Game setObjectBoard={setObjectBoard}/>
+      </div>
+      <div className="right-side">
       </div>
     </div>
   )
