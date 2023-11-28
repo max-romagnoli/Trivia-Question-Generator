@@ -38,7 +38,9 @@ export default function Game({setObjectBoard}){
 
   const handleSubmit = (event) => {
       setAnswer("")
-      fetch('http://localhost:5000/triviaquestion')
+      //127.0.0.1:5000 --> for mac
+      //localhost:5000 --> for windows
+      fetch('http://127.0.0.1:5000/triviaquestion')
         .then(response => response.json())
         .then(data => {
           setQuestion(data.triviaQuestion[0].question); 
