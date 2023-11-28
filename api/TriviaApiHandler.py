@@ -1,7 +1,7 @@
 from flask_restful import Resource
 try:
     from . import util
-except:
+except ImportError:
     import util
 
 class TriviaApiHandler(Resource):

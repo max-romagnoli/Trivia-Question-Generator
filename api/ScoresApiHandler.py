@@ -21,7 +21,7 @@ class ScoresApiHandler(Resource):
         try:
             from ..models import Score
             from ..app import db
-        except:
+        except ImportError:
             from models import Score
             from app import db
         new_score = Score(username, score_value)
