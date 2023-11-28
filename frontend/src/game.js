@@ -35,7 +35,24 @@ export default function Game({setObjectBoard}){
 //    })
 //    .catch(error => console.error(error));
 //  }, []);
+  function sendData(){
+    let url = 'http://127.0.0.1:5000/scores';
+    let data = {username: name, value: score};
+    console.log("sending this: name: "+name+" score: "+score)
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 
+  }
   const handleSubmit = (event) => {
       setAnswer("")
       //127.0.0.1:5000 --> for mac
@@ -62,6 +79,7 @@ export default function Game({setObjectBoard}){
         
       }else{
         setgameState(2)
+        sendData()
         let newScore = {name: name, score: score};
         let retrievedLeaderboard;
 
@@ -86,6 +104,9 @@ export default function Game({setObjectBoard}){
   };
   const gamePage = (
     <div className="game-container">
+
+      <button onClick={sendData}>remove me, this is just for testing sending data to db</button>
+
       <h2>
         Question {counter}
         <br />
