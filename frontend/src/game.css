@@ -52,4 +52,28 @@
     color: white;
     margin: 0;
   }
+
+  .wrong-box {
+    width: 200px;
+    background-color: #ff3d3d;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 4px solid #ffffff; /* Add a border for separation */
+    border-radius: 15px; /* Optional: Add rounded corners */
+    padding: 15px;
+  }
+
+  .wrong-box h2 {
+    font-size: 1.7em;
+    color: white;
+    margin: 0;
+  }
   
+  .wrong-box h3 {
+    font-size: .9em;
+    color: white;
+    margin: 0;
+    font-style: italic;
+    font-weight: 300; 
+  }

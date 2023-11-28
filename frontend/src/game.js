@@ -143,13 +143,22 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
   
   const gameEndPage = (
     <div className="game-container">
-      <h2>
+      <div className="wrong-box">
+        <h2>
         Wrong Answer
         <br />
+      </h2>
+      <h3>
+        <br />
+        You've made Steve upset :(
+        <br />
+      </h3>
+    </div>
+
+      <h2>  
         Start a new game?
         <br />
-        <br />
-      </h2>
+        </h2>
       <button onClick={() => {
         setgameState(1);
         onGameStateChange(1);
