@@ -25,8 +25,9 @@ if not os.path.exists('app_data.db'):
     with app.app_context():
         try:
             from .models import *
-        except:
+        except ImportError:
             from models import *
+        db.drop_all()
         db.create_all()
 
 
