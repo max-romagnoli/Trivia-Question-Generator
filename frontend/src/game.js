@@ -134,6 +134,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
       <br />
       <br />
       <h2>What is your username:</h2>
+      <br />
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={name} onChange={handleChangeName} />
         <input type="submit" value="Submit" />
