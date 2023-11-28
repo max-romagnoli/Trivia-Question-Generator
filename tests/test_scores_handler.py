@@ -1,6 +1,11 @@
-from .conftest import client
 from unittest.mock import MagicMock
-from .. import app
+
+try:
+    from .conftest import client
+    from .. import app
+except ImportError:
+    from conftest import client
+    import app
 
 
 def test_post_scores(client):

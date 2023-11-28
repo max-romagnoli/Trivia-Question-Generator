@@ -1,5 +1,8 @@
 import pytest
-from ..app import app
+try:
+    from ..app import app
+except:
+    from app import app
 
 
 @pytest.fixture()

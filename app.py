@@ -3,14 +3,14 @@ from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS  # Comment out for deployment
 from flask_sqlalchemy import SQLAlchemy
 import os
-from sys import platform
-if platform == "darwin":
+try:
     from .api.HelloApiHandler import HelloApiHandler
     from .api.TriviaApiHandler import TriviaApiHandler
     from .api.ScoresApiHandler import ScoresApiHandler
-else:
-    from .api.HelloApiHandler import HelloApiHandler
-    from .api.TriviaApiHandler import TriviaApiHandler
+except ImportError:
+    from api.HelloApiHandler import HelloApiHandler
+    from api.TriviaApiHandler import TriviaApiHandler
+    from api.ScoresApiHandler import ScoresApiHandler
 
 
 # initialise Flask app
@@ -23,7 +23,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app_data.db'
 db = SQLAlchemy(app)
 if not os.path.exists('app_data.db'):
     with app.app_context():
-        from models import *
+        try:
+            from .models import *
+        except:
+            from models import *
         db.create_all()
 
 

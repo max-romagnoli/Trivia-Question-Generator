@@ -1,4 +1,7 @@
-from app import db
+try:
+    from app import db
+except ImportError:
+    from .app import db
 from datetime import datetime
 
 
