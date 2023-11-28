@@ -18,11 +18,15 @@ class ScoresApiHandler(Resource):
             return {'error': 'username and score_value required'}, 400
 
         # create new db object
-        from models import Score
+        try:
+            from ..models import Score
+            from ..app import db
+        except:
+            from models import Score
+            from app import db
         new_score = Score(username, score_value)
 
         # add obj to db or return exception if fail
-        from app import db
         try:
             db.session.add(new_score)
             db.session.commit()

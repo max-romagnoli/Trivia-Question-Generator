@@ -1,5 +1,8 @@
 from flask_restful import Resource
-from . import util
+try:
+    from . import util
+except:
+    import util
 
 class TriviaApiHandler(Resource):
     def get(self):
