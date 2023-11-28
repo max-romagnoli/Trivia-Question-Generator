@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './game.css';
-import axios from 'axios'
+import * as config from './index.js'
 
 
 //install react-router-dom
@@ -25,7 +25,7 @@ export default function Game({setObjectBoard}){
 
 //  useEffect(() => {
 //    localStorage.clear();
-//    fetch('http://localhost:5000/triviaquestion')
+//    fetch(config.BACKEND_ADDRESS + '/triviaquestion')
 //    .then(response => response.json())
 //    .then(data => {
 //        setQuestion(data.triviaQuestion[0].question);
@@ -36,7 +36,7 @@ export default function Game({setObjectBoard}){
 //    .catch(error => console.error(error));
 //  }, []);
   function sendData(){
-    let url = 'http://127.0.0.1:5000/scores';
+    let url = config.BACKEND_ADDRESS + '/scores';
     let data = {username: name, value: score};
     console.log("sending this: name: "+name+" score: "+score)
     fetch(url, {
@@ -57,7 +57,7 @@ export default function Game({setObjectBoard}){
       setAnswer("")
       //127.0.0.1:5000 --> for mac
       //localhost:5000 --> for windows
-      fetch('http://127.0.0.1:5000/triviaquestion')
+      fetch(config.BACKEND_ADDRESS + '/triviaquestion')
         .then(response => response.json())
         .then(data => {
           setQuestion(data.triviaQuestion[0].question); 

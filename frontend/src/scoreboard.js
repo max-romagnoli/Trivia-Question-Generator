@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './scoreboard.css';
+import * as config from './index.js'
+
 
 export default function Scoreboard({objectBoard}){
 
