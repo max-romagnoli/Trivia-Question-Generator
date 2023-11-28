@@ -1,0 +1,23 @@
+.scoreboard {
+    width: 180px;
+    background-color: #8e3dff; /* Set your desired background color */
+    padding: 15px;
+    border: 4px solid #ffffff; /* Add a border for separation */
+    border-radius: 15px; /* Optional: Add rounded corners */
+    
+  }
+  
+  .scoreboard p1 {
+    font-size: 1.9em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .scoreboard div {
+    margin-bottom: 5px;
+  }
+  
+  .scoreboard span {
+    margin-right: 10px;
+  }
+  

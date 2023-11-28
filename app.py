@@ -9,9 +9,8 @@ if platform == "darwin":
     from .api.TriviaApiHandler import TriviaApiHandler
     from .api.ScoresApiHandler import ScoresApiHandler
 else:
-    from api.HelloApiHandler import HelloApiHandler
-    from api.TriviaApiHandler import TriviaApiHandler
-    from api.ScoresApiHandler import ScoresApiHandler
+    from .api.HelloApiHandler import HelloApiHandler
+    from .api.TriviaApiHandler import TriviaApiHandler
 
 
 # initialise Flask app
