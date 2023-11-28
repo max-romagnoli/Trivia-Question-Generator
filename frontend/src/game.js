@@ -3,7 +3,7 @@ import './game.css';
 import axios from 'axios'
 import CurrentScore from './currentScore';
 
-export default function Game({ setObjectBoard }) {
+export default function Game({ setObjectBoard, onGameStateChange }) {
   const [style, setStyle] = useState({
     fontSize: '6em',
     color: 'white',
@@ -82,7 +82,9 @@ export default function Game({ setObjectBoard }) {
         setCounter(prev=>prev+1)
         
       }else{
-        setgameState(2)
+        setgameState(2);
+        onGameStateChange(2);
+
         let newScore = {name: name, score: score};
         let retrievedLeaderboard;
 
@@ -116,6 +118,7 @@ export default function Game({ setObjectBoard }) {
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChangeAnswer} />
         <input type="submit" value="Submit" />
+        
       </form>
       <br />
       <br />
@@ -126,6 +129,10 @@ export default function Game({ setObjectBoard }) {
   
   const loginPage = (
     <div className="game-container">
+      <br />
+      <br />
+      <br />
+      <br />
       <h2>What is your username:</h2>
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={name} onChange={handleChangeName} />
@@ -143,7 +150,10 @@ export default function Game({ setObjectBoard }) {
         <br />
         <br />
       </h2>
-      <button onClick={() => setgameState(1)}>retry?</button>
+      <button onClick={() => {
+        setgameState(1);
+        onGameStateChange(1);
+      }}>retry?</button>
     </div>
   )
   return(

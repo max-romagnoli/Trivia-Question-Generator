@@ -23,7 +23,12 @@ body {
 
 .right-side {
   width: 20%;
-  padding: 10px;
   display: flex;
   justify-content: flex-end; /* Align content to the right */
+}
+
+.small-image {
+  width: auto;
+  height: 350px;
+  margin-top: 100px;
 }
