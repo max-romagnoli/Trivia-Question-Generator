@@ -4,6 +4,9 @@
 (Through terminal)
 1. Ensure you are in the root of the project (on same level as app.py and requirements.txt)
 2. Install requirements: `pip install -r requirements.txt`
+3. go into frontend/src/game.js and make sure 43 is correct for the computer you're on
+  (127.0.0.1:5000 --> for mac
+  localhost:5000 --> for windows)
 3. Run the backend: `flask run`
 
 ## Running the tests

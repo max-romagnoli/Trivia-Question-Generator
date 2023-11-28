@@ -3,14 +3,15 @@ import './scoreboard.css';
 
 export default function Scoreboard({objectBoard}){
 
-  console.log("rerender")
   function renderObjectBoard(){
     if(objectBoard===0){
       return(<></>)
     }
-    console.log("e")
+    // Reverse the array to display newest highscores first
+    const reversedPlayers = objectBoard.players.slice().reverse();
+
     console.log(objectBoard.players[0].name)
-    return <>{objectBoard.players.map((player, index) => (
+    return <>{reversedPlayers.map((player, index) => (
       <div key={index}>
         <span>{player.name}: </span>
         <span>{player.score}</span>
@@ -19,7 +20,11 @@ export default function Scoreboard({objectBoard}){
   }
   return(
     <div className='scoreboard'>
-    <p1>Highscores</p1>
+    <p1>High Scores
+    <br />
+    <br />
+
+    </p1>
     <>{renderObjectBoard()}</>
     </div>
   )
