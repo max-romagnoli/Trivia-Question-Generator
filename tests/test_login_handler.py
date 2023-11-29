@@ -15,8 +15,7 @@ def test_post_login(client):
 
     # Test Case 1: Valid request with a score value of 0
     req_body_valid = {
-        'Username': 'ciao27',
-        'Score': 0
+        'Username': 'ciao27'
     }
 
     response_valid = client.post("/login", json=req_body_valid)
@@ -26,7 +25,6 @@ def test_post_login(client):
     # Test Case 2: Blank Username, should return 400 error code
     req_body_blank_username = {
         'Username': '',
-        'Score': 100
     }
 
     response_blank_username = client.post("/login", json=req_body_blank_username)
