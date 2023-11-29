@@ -53,19 +53,18 @@ export default function Game({setObjectBoard}){
     });
 
   }
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
       setgameState(3)
       setAnswer("")
-      fetch(config.BACKEND_ADDRESS + '/triviaquestion')
-        .then(response => response.json())
-        .then(data => {
-          setQuestion(data.triviaQuestion[0].question); 
-          setRightAnswer(data.triviaQuestion[0].answer);
-          console.log(data.triviaQuestion[0].answer)
-          setQuestionValue(data.triviaQuestion[0].value)
-        })
-        .then(setgameState(1))
-        .catch(error => console.error(error))
+      const response = await fetch(config.BACKEND_ADDRESS + '/triviaquestion');
+      const data = await response.json();
+
+      setQuestion(data.triviaQuestion[0].question);
+      setRightAnswer(data.triviaQuestion[0].answer);
+      console.log(data.triviaQuestion[0].answer);
+      setQuestionValue(data.triviaQuestion[0].value);
+
+      setgameState(1); 
     if(gameState===0){
       console.log(name)
       setgameState(1)
@@ -159,6 +158,7 @@ export default function Game({setObjectBoard}){
             case 0: return loginPage;
             case 1: return gamePage;
             case 2: return gameEndPage;
+            case 3: return loadingPage;
             default: return loadingPage;
           }
         })()}
