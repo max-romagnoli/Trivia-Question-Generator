@@ -9,13 +9,13 @@ try:
     from .api.HelloApiHandler import HelloApiHandler
     from .api.TriviaApiHandler import TriviaApiHandler
     from .api.ScoresApiHandler import ScoresApiHandler
-    from .api.LoginApiHandler import LoginApiHandler 
+    from .api.RegisterApiHandler import RegisterApiHandler
 
 except ImportError:
     from api.HelloApiHandler import HelloApiHandler
     from api.TriviaApiHandler import TriviaApiHandler
     from api.ScoresApiHandler import ScoresApiHandler
-    from api.LoginApiHandler import LoginApiHandler
+    from api.RegisterApiHandler import RegisterApiHandler
 
 
 # initialise Flask app
@@ -30,6 +30,8 @@ CORS(app)  # Comment out for deployment
 # initialise database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app_data.db'
 db = SQLAlchemy(app)
+# db.drop_all()
+# db.create_all() 
 if not os.path.exists('app_data.db'):
     with app.app_context():
         try:
@@ -48,7 +50,7 @@ def serve(path):
 api.add_resource(TriviaApiHandler, '/triviaquestion')
 api.add_resource(HelloApiHandler, '/flask/hello')
 api.add_resource(ScoresApiHandler, '/scores')
-api.add_resource(LoginApiHandler, '/login')
+api.add_resource(RegisterApiHandler, '/login')
 #api.add_resource(LoginApiHandler, '/get_user')
 
 
