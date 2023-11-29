@@ -152,10 +152,13 @@ export default function Game({setObjectBoard}){
   const gameEndPage = (
     <div className="game-container">
       <h2>
-        Wrong Answer :(
+        Wrong Answer 😭
+        <br/>
+         {question +": "+rightAnswer}
+        <br/>
         <br />
         Start a new game?
-        <br />
+
         <br />
       </h2>
       <button onClick={handleSubmit}>retry?</button>
