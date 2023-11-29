@@ -113,15 +113,14 @@ export default function Game({setObjectBoard}){
   };
   const gamePage = (
     <div className="game-container">
-
-      <button onClick={sendData}>remove me, this is just for testing sending data to db</button>
-
+      
       <h2>
         Question {counter}
         <br />
-        Current score: {counter - 1}
+        Current score: {score}
       </h2>
-      <h2>{question + "(" + questionValue + ")"}</h2>
+      <h2>{question }</h2>
+      <h3>{"Value: " + questionValue}</h3>
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChangeAnswer} />
         <input type="submit" value="Submit" />
@@ -140,7 +139,6 @@ export default function Game({setObjectBoard}){
   )
   const loadingPage = (
     <div className="game-container">
-      <button onClick={sendData}>remove me, this is just for testing sending data to db</button>
       <h2>
         Question is loading, be patient my friend
         <br />
