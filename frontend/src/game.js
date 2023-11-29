@@ -62,8 +62,7 @@ export default function Game({setObjectBoard}){
     setQuestion(data.triviaQuestion[0].question);
     setRightAnswer(data.triviaQuestion[0].answer);
     console.log(data.triviaQuestion[0].answer);
-    setQuestionValue(data.triviaQuestion[0].value);
-  
+    setQuestionValue(data.triviaQuestion[0]?.value || 100);  
     // Set game state to 1 after fetching data
     setgameState(1);
   };
