@@ -6,7 +6,8 @@ import * as config from './index.js'
 //install react-router-dom
 export default function Game({setObjectBoard}){
   //data struct to store and get player data
-  
+  //Todo give gamestate a proper name
+  //gamestate: 0 loginPage, 1 gamepage, 2 lost page, 3 loading
   const [counter, setCounter] = useState(1)
   const [answer, setAnswer] = useState('')
   const [name,setName]=useState('')
@@ -15,7 +16,6 @@ export default function Game({setObjectBoard}){
   const [rightAnswer,setRightAnswer]=useState()
   const [score,setScore]=useState(0)
   const [questionValue, setQuestionValue]=useState(0)
-  let worth=0
   const handleChangeAnswer = (event) => {
     setAnswer(event.target.value);
   };
@@ -54,6 +54,7 @@ export default function Game({setObjectBoard}){
 
   }
   const handleSubmit = (event) => {
+      setgameState(3)
       setAnswer("")
       fetch(config.BACKEND_ADDRESS + '/triviaquestion')
         .then(response => response.json())
@@ -63,6 +64,7 @@ export default function Game({setObjectBoard}){
           console.log(data.triviaQuestion[0].answer)
           setQuestionValue(data.triviaQuestion[0].value)
         })
+        .then(setgameState(1))
         .catch(error => console.error(error))
     if(gameState===0){
       console.log(name)
@@ -127,6 +129,15 @@ export default function Game({setObjectBoard}){
       </form>
     </div>
   )
+  const loadingPage = (
+    <div className="game-container">
+      <button onClick={sendData}>remove me, this is just for testing sending data to db</button>
+      <h2>
+        Question is loading, be patient my friend
+        <br />
+      </h2>
+    </div>
+  )
   
   const gameEndPage = (
     <div className="game-container">
@@ -143,7 +154,14 @@ export default function Game({setObjectBoard}){
   return(
       <header className="App-header">
         <h1>TRIVIA GAME</h1>
-        {gameState === 0 ? loginPage  : gameState === 1 ? gamePage  : gameEndPage }
+        {(() => {
+          switch(gameState) {
+            case 0: return loginPage;
+            case 1: return gamePage;
+            case 2: return gameEndPage;
+            default: return loadingPage;
+          }
+        })()}
       </header>
   )
 }
