@@ -6,7 +6,8 @@ import * as config from './index.js'
 //install react-router-dom
 export default function Game({setObjectBoard}){
   //data struct to store and get player data
-  
+  //Todo give gamestate a proper name
+  //gamestate: 0 loginPage, 1 gamepage, 2 lost page, 3 loading
   const [counter, setCounter] = useState(1)
   const [answer, setAnswer] = useState('')
   const [name,setName]=useState('')
@@ -15,7 +16,6 @@ export default function Game({setObjectBoard}){
   const [rightAnswer,setRightAnswer]=useState()
   const [score,setScore]=useState(0)
   const [questionValue, setQuestionValue]=useState(0)
-  let worth=0
   const handleChangeAnswer = (event) => {
     setAnswer(event.target.value);
   };
@@ -53,20 +53,25 @@ export default function Game({setObjectBoard}){
     });
 
   }
-  const handleSubmit = (event) => {
-      setAnswer("")
-      fetch(config.BACKEND_ADDRESS + '/triviaquestion')
-        .then(response => response.json())
-        .then(data => {
-          setQuestion(data.triviaQuestion[0].question); 
-          setRightAnswer(data.triviaQuestion[0].answer);
-          console.log(data.triviaQuestion[0].answer)
-          setQuestionValue(data.triviaQuestion[0].value)
-        })
-        .catch(error => console.error(error))
+  const fetchTriviaData = async () => {
+    // Fetch data from the API
+    const response = await fetch(config.BACKEND_ADDRESS + '/triviaquestion');
+    const data = await response.json();
+    setAnswer("")
+    // Update game state based on fetched data
+    setQuestion(data.triviaQuestion[0].question);
+    setRightAnswer(data.triviaQuestion[0].answer);
+    console.log(data.triviaQuestion[0].answer);
+    setQuestionValue(data.triviaQuestion[0]?.value || 100);  
+    // Set game state to 1 after fetching data
+    setgameState(1);
+  };
+  const handleSubmit = async(event) => {
     if(gameState===0){
       console.log(name)
-      setgameState(1)
+      setgameState(3)
+      await fetchTriviaData()
+
     }
     if(gameState===1){    
       console.log("Answer Given: "+answer)
@@ -74,7 +79,9 @@ export default function Game({setObjectBoard}){
       if(answer===rightAnswer){
         setScore(prev=>prev+questionValue)
         setCounter(prev=>prev+1)
-        
+        setgameState(3)
+        await fetchTriviaData()
+
       }else{
         setgameState(2)
         sendData()
@@ -96,21 +103,24 @@ export default function Game({setObjectBoard}){
         localStorage.setItem('players', JSON.stringify(retrievedLeaderboard));
         setCounter(prev=>1)
         setScore(0)
-      }
+      } 
+    }
+    if(gameState===2){   
+      setgameState(3)
+      fetchTriviaData()
     }
     event.preventDefault();
   };
   const gamePage = (
     <div className="game-container">
-
-      <button onClick={sendData}>remove me, this is just for testing sending data to db</button>
-
+      
       <h2>
         Question {counter}
         <br />
-        Current score: {counter - 1}
+        Current score: {score}
       </h2>
-      <h2>{question + "(" + questionValue + ")"}</h2>
+      <h2>{question }</h2>
+      <h3>{"Value: " + questionValue}</h3>
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChangeAnswer} />
         <input type="submit" value="Submit" />
@@ -127,23 +137,42 @@ export default function Game({setObjectBoard}){
       </form>
     </div>
   )
+  const loadingPage = (
+    <div className="game-container">
+      <h2>
+        Question is loading, be patient my friend
+        <br />
+      </h2>
+    </div>
+  )
   
   const gameEndPage = (
     <div className="game-container">
       <h2>
-        Wrong Answer :(
+        Wrong Answer 😭
+        <br/>
+         {question +": "+rightAnswer}
+        <br/>
         <br />
         Start a new game?
-        <br />
+
         <br />
       </h2>
-      <button onClick={() => setgameState(1)}>retry?</button>
+      <button onClick={handleSubmit}>retry?</button>
     </div>
   )
   return(
       <header className="App-header">
         <h1>TRIVIA GAME</h1>
-        {gameState === 0 ? loginPage  : gameState === 1 ? gamePage  : gameEndPage }
+        {(() => {
+          switch(gameState) {
+            case 0: return loginPage;
+            case 1: return gamePage;
+            case 2: return gameEndPage;
+            case 3: return loadingPage;
+            default: return loadingPage;
+          }
+        })()}
       </header>
   )
 }
