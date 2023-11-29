@@ -151,7 +151,7 @@ export default function Game({setObjectBoard}){
       <h2>
         Wrong Answer 😭
         <br/>
-         {question +": "+rightAnswer}
+        The correct Answer was: {rightAnswer}
         <br/>
         <br />
         Start a new game?
