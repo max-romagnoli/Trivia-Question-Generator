@@ -2,19 +2,28 @@ from flask import Flask, send_from_directory
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS  # Comment out for deployment
 from flask_sqlalchemy import SQLAlchemy
+from flask_session import Session
+from tempfile import mkdtemp
 import os
 try:
     from .api.HelloApiHandler import HelloApiHandler
     from .api.TriviaApiHandler import TriviaApiHandler
     from .api.ScoresApiHandler import ScoresApiHandler
+    from .api.LoginApiHandler import LoginApiHandler 
+
 except ImportError:
     from api.HelloApiHandler import HelloApiHandler
     from api.TriviaApiHandler import TriviaApiHandler
     from api.ScoresApiHandler import ScoresApiHandler
+    from api.LoginApiHandler import LoginApiHandler
 
 
 # initialise Flask app
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')  # add ref to frontend subdirectory
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_FILE_DIR"] = mkdtemp()
+Session(app)
 api = Api(app)
 CORS(app)  # Comment out for deployment
 
@@ -39,3 +48,7 @@ def serve(path):
 api.add_resource(TriviaApiHandler, '/triviaquestion')
 api.add_resource(HelloApiHandler, '/flask/hello')
 api.add_resource(ScoresApiHandler, '/scores')
+api.add_resource(LoginApiHandler, '/login')
+#api.add_resource(LoginApiHandler, '/get_user')
+
+
