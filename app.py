@@ -1,6 +1,6 @@
 from flask import Flask, send_from_directory
 from flask_restful import Api, Resource, reqparse
-from flask_cors import CORS  # Comment out for deployment
+# from flask_cors import CORS  # Comment out for deployment
 from flask_sqlalchemy import SQLAlchemy
 import os
 try:
@@ -16,7 +16,7 @@ except ImportError:
 # initialise Flask app
 app = Flask(__name__, static_url_path='', static_folder='frontend/build')  # add ref to frontend subdirectory
 api = Api(app)
-CORS(app)  # Comment out for deployment
+# CORS(app)  # Comment out for deployment
 
 # initialise database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app_data.db'
