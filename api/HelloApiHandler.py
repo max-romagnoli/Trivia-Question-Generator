@@ -6,11 +6,5 @@ class HelloApiHandler(Resource):
     def get(self):
         return {
             'response': "SUCCESS",
-            'message': 20, 
-        }
-    
-
-        
-        
-
-
+            'message': "Hello World!"
+        }, 200

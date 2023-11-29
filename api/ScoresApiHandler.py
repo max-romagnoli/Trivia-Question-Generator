@@ -18,7 +18,7 @@ class ScoresApiHandler(Resource):
 
         # create new db object
         try:
-            from .models import Score
+            from ..models import Score
             from ..app import db
         except ImportError:
             from models import Score
