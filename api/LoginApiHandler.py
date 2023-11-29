@@ -1,12 +1,13 @@
 from flask import request, session
 from flask_restful import Resource
+from werkzeug.security import check_password_hash, generate_password_hash
 
-class LoginApiHandler(Resource):
+class RegisterApiHandler(Resource):
     def post(self):
         if request.is_json:
             data = request.get_json()
-            username = data.get('Username', '')
-            score_value = data.get('Score', 0)  
+            username = data.get('Username', '') 
+            password = data.get('Password','')
 
             # Check if the 'Name' field is blank
             if not username:
@@ -16,14 +17,14 @@ class LoginApiHandler(Resource):
             session['Username'] = username
             
             try:
-                from ..models import Score
+                from ..models import User
                 from ..app import db
             except ImportError:
-                from models import Score
+                from models import User
                 from app import db
             
             # Save the user to the database
-            user = Score(username, score_value)
+            user = User(username,password)
             db.session.add(user)
             db.session.commit()
 
