@@ -51,6 +51,7 @@ export default function Game({setObjectBoard}){
     .catch((error) => {
       console.error('Error:', error);
     });
+    setgameState(4)
 
   }
   const fetchTriviaData = async () => {
@@ -67,20 +68,30 @@ export default function Game({setObjectBoard}){
     setgameState(1);
   };
   const handleSubmit = async(event) => {
-    if(gameState===0){
+    if(gameState===0){ //currently in login
       console.log(name)
       setgameState(3)
-      await fetchTriviaData()
+      try {
+        await fetchTriviaData();
+      } catch (error) {
+        console.error('Error fetching trivia data:', error);
+        setgameState(4)
+      }
 
     }
-    if(gameState===1){    
+    if(gameState===1){//currently playing game
       console.log("Answer Given: "+answer)
       console.log("The Right Answer: '"+rightAnswer +"'")
       if(answer===rightAnswer){
         setScore(prev=>prev+questionValue)
         setCounter(prev=>prev+1)
         setgameState(3)
-        await fetchTriviaData()
+        try {
+          await fetchTriviaData();
+        } catch (error) {
+          console.error('Error fetching trivia data:', error);
+          setgameState(4)
+        }
 
       }else{
         setgameState(2)
@@ -105,9 +116,17 @@ export default function Game({setObjectBoard}){
         setScore(0)
       } 
     }
-    if(gameState===2){   
+    if(gameState===2){ //currently on lost page
       setgameState(3)
-      fetchTriviaData()
+      try {
+        await fetchTriviaData();
+      } catch (error) {
+        console.error('Error fetching trivia data:', error);
+        setgameState(4)
+      }
+    }
+    if(gameState===4){ //fetching error
+      setgameState(1)
     }
     event.preventDefault();
   };
@@ -135,6 +154,12 @@ export default function Game({setObjectBoard}){
         <input type="text" value={name} onChange={handleChangeName} />
         <input type="submit" value="Submit" />
       </form>
+    </div>
+  )
+  const noBackend = (
+    <div className="game-container">
+      <h2>My brother, you forgot to start the server 💀💀💀</h2>
+      <button onClick={handleSubmit}>Retry</button>
     </div>
   )
   const loadingPage = (
@@ -170,7 +195,8 @@ export default function Game({setObjectBoard}){
             case 1: return gamePage;
             case 2: return gameEndPage;
             case 3: return loadingPage;
-            default: return loadingPage;
+            case 4: return noBackend;
+            default: return noBackend;
           }
         })()}
       </header>
