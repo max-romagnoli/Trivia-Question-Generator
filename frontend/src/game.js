@@ -53,21 +53,26 @@ export default function Game({setObjectBoard}){
     });
 
   }
+  const fetchTriviaData = async () => {
+    // Fetch data from the API
+    const response = await fetch(config.BACKEND_ADDRESS + '/triviaquestion');
+    const data = await response.json();
+    setAnswer("")
+    // Update game state based on fetched data
+    setQuestion(data.triviaQuestion[0].question);
+    setRightAnswer(data.triviaQuestion[0].answer);
+    console.log(data.triviaQuestion[0].answer);
+    setQuestionValue(data.triviaQuestion[0].value);
+  
+    // Set game state to 1 after fetching data
+    setgameState(1);
+  };
   const handleSubmit = async(event) => {
-      setgameState(3)
-      setAnswer("")
-      const response = await fetch(config.BACKEND_ADDRESS + '/triviaquestion');
-      const data = await response.json();
-
-      setQuestion(data.triviaQuestion[0].question);
-      setRightAnswer(data.triviaQuestion[0].answer);
-      console.log(data.triviaQuestion[0].answer);
-      setQuestionValue(data.triviaQuestion[0].value);
-
-      setgameState(1); 
     if(gameState===0){
       console.log(name)
-      setgameState(1)
+      setgameState(3)
+      await fetchTriviaData()
+
     }
     if(gameState===1){    
       console.log("Answer Given: "+answer)
@@ -75,7 +80,9 @@ export default function Game({setObjectBoard}){
       if(answer===rightAnswer){
         setScore(prev=>prev+questionValue)
         setCounter(prev=>prev+1)
-        
+        setgameState(3)
+        await fetchTriviaData()
+
       }else{
         setgameState(2)
         sendData()
@@ -97,7 +104,11 @@ export default function Game({setObjectBoard}){
         localStorage.setItem('players', JSON.stringify(retrievedLeaderboard));
         setCounter(prev=>1)
         setScore(0)
-      }
+      } 
+    }
+    if(gameState===2){   
+      setgameState(3)
+      fetchTriviaData()
     }
     event.preventDefault();
   };
@@ -147,7 +158,7 @@ export default function Game({setObjectBoard}){
         <br />
         <br />
       </h2>
-      <button onClick={() => setgameState(1)}>retry?</button>
+      <button onClick={handleSubmit}>retry?</button>
     </div>
   )
   return(
