@@ -21,43 +21,31 @@ def test_post_scores(client):
     assert response.status_code == 201
 
 
-def test_get_scores(client):  
-  
-    with patch('flask.Request.get_json') as mock_get_json:
-        mock_get_json.return_value = {
-            "scores": [
-                {"username": "Alice", "value": 120}, 
-                {"username": "Bob", "value": 90},
-                {"username": "Charlie", "value": 150},
-                {"username": "A", "value": 120}, 
-                {"username": "B", "value": 905},
-                {"username": "C", "value": 1530},
-                {"username": "D", "value": 1220}, 
-                {"username": "E", "value": 920},
-                {"username": "F", "value": 15},
-                {"username": "ten", "value": 10},
-                {"username": "dont_add", "value": 404},
-                {"username": "dont_add", "value": 404},
-                {"username": "dont_add", "value": 404},
-            ]
-        }
+def test_get_most_recent_scores_when_less_than_ten(client):
+    mocked_db = MagicMock()
+    app.db = mocked_db
 
-        response = client.get("/scores")
+    # populate db with three scores (using POST)
+    req_body_scores = [
+        {"username": "Alice", "value": 120},
+        {"username": "Bob", "value": 90},
+        {"username": "Charlie", "value": 150}
+    ]
+    for s in req_body_scores:
+        client.post("/scores", json=s)
 
-        assert response.status_code == 200
-        expected_json = [
-                {"username": "Alice", "value": 120}, 
-                {"username": "Bob", "value": 90},
-                {"username": "Charlie", "value": 150},
-                {"username": "A", "value": 120}, 
-                {"username": "B", "value": 905},
-                {"username": "C", "value": 1530},
-                {"username": "D", "value": 1220}, 
-                {"username": "E", "value": 920},
-                {"username": "F", "value": 15},
-                {"username": "ten", "value": 10},
+    # expecting scores in reverse order of how we posted them
+    exp_response_body = {
+        "scores": [
+            {"id": 3, "username": "Charlie", "value": 150},
+            {"id": 2, "username": "Bob", "value": 90},
+            {"id": 1, "username": "Alice", "value": 120}
         ]
-        
-        assert response.json == expected_json
-    
+    }
+
+    # sending get request and asserting desired values
+    response = client.get("/scores")
+    assert response.json == exp_response_body
+    assert response.status == 200
+
     

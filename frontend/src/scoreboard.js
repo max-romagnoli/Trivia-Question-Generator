@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './scoreboard.css';
+import * as config from './index.js'
+
 
 export default function Scoreboard({objectBoard}){
 
@@ -10,7 +12,6 @@ export default function Scoreboard({objectBoard}){
     // Reverse the array to display newest highscores first
     const reversedPlayers = objectBoard.players.slice().reverse();
 
-    console.log(objectBoard.players[0].name)
     return <>{reversedPlayers.map((player, index) => (
       <div key={index}>
         <span>{player.name}: </span>
