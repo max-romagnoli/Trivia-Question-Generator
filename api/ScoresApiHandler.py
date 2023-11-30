@@ -1,22 +1,35 @@
 from flask import request
 from flask_restful import Resource
 from typing import Tuple, Dict
+from sqlalchemy import desc
 
 
 class ScoresApiHandler(Resource):
-    def get(self):
-        # TODO: @Oisìn
 
-        # TODO: this is a placeholder for testing. it queries and prints all entries.
+    @staticmethod
+    def get():
+        # import models from db
         try:
             from ..models import Score
         except ImportError:
             from models import Score
-        result = [{"id": entry.id, "username": entry.username, "score": entry.score} for entry in Score.query.all()]
-        print(result)
-        return {'ALL SCORES': result}
 
-    def post(self) -> Tuple[Dict[str,str], int]:
+        try:
+            # query 10 most recent scores
+            result = [
+                {
+                    "id": entry.id,
+                    "username": entry.username,
+                    "score": entry.score
+                }
+                for entry in Score.query.order_by(desc(Score.score)).limit(10)
+            ]
+            return {'scores': result}, 200
+        except Exception as e:
+            return {'message': f'Error retrieving scores: {e}'}, 500
+
+    @staticmethod
+    def post() -> Tuple[Dict[str,str], int]:
         data = request.get_json()
         username = data.get('username')
         score_value = data.get('value')
