@@ -18,3 +18,17 @@ class Score(db.Model):
 
     def __repr__(self):
         return '<id %r, username %r, score %r' % (self.id, self.username, self.score)
+
+
+class User(db.Model):
+
+    username = db.Column(db.String(50), primary_key=True, nullable=False)
+    password = db.Column(db.String(20), nullable=False)
+    date_created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+
+    def __repr__(self):
+        return '<username %r' % (self.username)

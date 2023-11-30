@@ -7,10 +7,13 @@ try:
     from .api.HelloApiHandler import HelloApiHandler
     from .api.TriviaApiHandler import TriviaApiHandler
     from .api.ScoresApiHandler import ScoresApiHandler
+    from .api.RegisterApiHandler import RegisterApiHandler
+
 except ImportError:
     from api.HelloApiHandler import HelloApiHandler
     from api.TriviaApiHandler import TriviaApiHandler
     from api.ScoresApiHandler import ScoresApiHandler
+    from api.RegisterApiHandler import RegisterApiHandler
 
 
 # initialise Flask app
@@ -40,3 +43,6 @@ def serve(path):
 api.add_resource(TriviaApiHandler, '/triviaquestion')
 api.add_resource(HelloApiHandler, '/flask/hello')
 api.add_resource(ScoresApiHandler, '/scores')
+api.add_resource(RegisterApiHandler, '/register')
+
+
