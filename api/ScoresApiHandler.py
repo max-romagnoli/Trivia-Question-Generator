@@ -5,7 +5,15 @@ from typing import Tuple, Dict
 
 class ScoresApiHandler(Resource):
     def get(self):
-        return request.get_json()
+        json_data = request.get_json()
+        if json_data:
+            # Assuming the JSON structure has a key 'scores' containing a list of elements
+            scores = json_data.get('scores', [])
+            first_ten = scores[:10]  # Retrieve the first 10 elements
+            return first_ten
+        else:
+            return {'error': 'No JSON data found.'},400
+
 
     def post(self) -> Tuple[Dict[str,str], int]:
         data = request.get_json()
