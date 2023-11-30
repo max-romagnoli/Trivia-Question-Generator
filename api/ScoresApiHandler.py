@@ -1,6 +1,7 @@
 from flask import request
 from flask_restful import Resource
 from typing import Tuple, Dict
+from sqlalchemy import desc
 
 
 class ScoresApiHandler(Resource):
@@ -21,7 +22,7 @@ class ScoresApiHandler(Resource):
                     "username": entry.username,
                     "score": entry.score
                 }
-                for entry in Score.query.order_by(Score.date_created).limit(10)
+                for entry in Score.query.order_by(desc(Score.date_created)).limit(10)
             ]
             return {'scores': result}, 200
         except Exception as e:
