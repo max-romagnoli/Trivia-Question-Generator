@@ -6,7 +6,15 @@ from typing import Tuple, Dict
 class ScoresApiHandler(Resource):
     def get(self):
         # TODO: @Oisìn
-        pass
+
+        # TODO: this is a placeholder for testing. it queries and prints all entries.
+        try:
+            from ..models import Score
+        except ImportError:
+            from models import Score
+        result = [{"id": entry.id, "username": entry.username, "score": entry.score} for entry in Score.query.all()]
+        print(result)
+        return {'ALL SCORES': result}
 
     def post(self) -> Tuple[Dict[str,str], int]:
         data = request.get_json()
