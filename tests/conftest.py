@@ -1,7 +1,7 @@
 import pytest
 try:
     from ..app import app
-except:
+except ImportError:
     from app import app
 
 
