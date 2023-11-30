@@ -18,7 +18,8 @@ class Score(db.Model):
 
     def __repr__(self):
         return '<id %r, username %r, score %r' % (self.id, self.username, self.score)
-    
+
+
 class User(db.Model):
 
     username = db.Column(db.String(50), primary_key=True, nullable=False)
