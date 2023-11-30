@@ -35,8 +35,13 @@ class RegisterApiHandler(Resource):
         else:
             return {"error": "Invalid JSON in the request"}, 400
 
-# class GetUserResource(Resource):
-#     def get(self):
-#           # Retrieve the username from the session
-#           username = session.get('Username', '')
-#           return {"Username": username}
+    def get(self):
+        # TODO: this is a placeholder for testing. it queries and prints all entries.
+        try:
+            from ..models import User
+        except ImportError:
+            from models import User
+        result = [{"username": entry.username, "password": entry.password} for entry in User.query.all()]
+        print(result)
+        return {'ALL USERS': result}
+
