@@ -12,7 +12,7 @@ class RegisterApiHandler(Resource):
             password = generate_password_hash(password)
 
             # Check if the 'Name' field is blank
-            if not username:
+            if username == '':
                 return {"error": "Username cannot be blank"}, 400
 
             try:
