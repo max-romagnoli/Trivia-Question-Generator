@@ -4,18 +4,31 @@ from typing import Tuple, Dict
 
 
 class ScoresApiHandler(Resource):
-    def get(self):
-        json_data = request.get_json()
-        if json_data:
-            # Assuming the JSON structure has a key 'scores' containing a list of elements
-            scores = json_data.get('scores', [])
-            first_ten = scores[:10]  # Retrieve the first 10 elements
-            return first_ten
-        else:
-            return {'error': 'No JSON data found.'},400
 
+    @staticmethod
+    def get():
+        # import models from db
+        try:
+            from ..models import Score
+        except ImportError:
+            from models import Score
 
-    def post(self) -> Tuple[Dict[str,str], int]:
+        try:
+            # query 10 most recent scores
+            result = [
+                {
+                    "id": entry.id,
+                    "username": entry.username,
+                    "score": entry.score
+                }
+                for entry in Score.query.order_by(Score.date_created).limit(10)
+            ]
+            return {'scores': result}, 200
+        except Exception as e:
+            return {'message': f'Error retrieving scores: {e}'}, 500
+
+    @staticmethod
+    def post() -> Tuple[Dict[str,str], int]:
         data = request.get_json()
         username = data.get('username')
         score_value = data.get('value')
