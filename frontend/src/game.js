@@ -50,8 +50,8 @@ export default function Game({setObjectBoard}){
     .then(data => console.log(data))
     .catch((error) => {
       console.error('Error:', error);
+      setgameState(4)
     });
-    setgameState(4)
 
   }
   const fetchTriviaData = async () => {
@@ -126,7 +126,13 @@ export default function Game({setObjectBoard}){
       }
     }
     if(gameState===4){ //fetching error
-      setgameState(1)
+      try {
+        await fetchTriviaData();
+        await setgameState(1)
+      } catch (error) {
+        console.error('Error fetching trivia data:', error);
+        setgameState(4)
+      }
     }
     event.preventDefault();
   };
