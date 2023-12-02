@@ -4,7 +4,7 @@ import * as config from './index.js'
 
 
 //install react-router-dom
-export default function Game({setObjectBoard}){
+export default function Game({setReload}){
   //data struct to store and get player data
   //Todo give gamestate a proper name
   //gamestate: 0 loginPage, 1 gamepage, 2 lost page, 3 loading
@@ -23,18 +23,6 @@ export default function Game({setObjectBoard}){
     setName(event.target.value);
   };
 
-//  useEffect(() => {
-//    localStorage.clear();
-//    fetch(config.BACKEND_ADDRESS + '/triviaquestion')
-//    .then(response => response.json())
-//    .then(data => {
-//        setQuestion(data.triviaQuestion[0].question);
-//        console.log(question);
-//        rightAnswer = data.triviaQuestion[0].answer;
-//        console.log(rightAnswer)
-//    })
-//    .catch(error => console.error(error));
-//  }, []);
   function sendData(){
     let url = config.BACKEND_ADDRESS + '/scores';
     let data = {username: name, value: score};
@@ -95,23 +83,12 @@ export default function Game({setObjectBoard}){
 
       }else{
         setgameState(2)
-        sendData()
-        let newScore = {name: name, score: score};
-        let retrievedLeaderboard;
-
-        if (localStorage.getItem('players') === null) {
-          // If 'players' key does not exist in localStorage, initialize retrievedLeaderboard with an empty players array
-          retrievedLeaderboard = {players: []};
-        } else {
-          // If 'players' key exists in localStorage, retrieve the data
-          retrievedLeaderboard = JSON.parse(localStorage.getItem('players'));
+        try {
+          await sendData()
+          setReload(prev=>!prev)
+        } catch (error) {
+          console.error('Error sending data:', error);
         }
-
-        // Push newScore into the players array
-        retrievedLeaderboard.players.push(newScore);
-        // Store the updated data back into localStorage
-        setObjectBoard(retrievedLeaderboard)
-        localStorage.setItem('players', JSON.stringify(retrievedLeaderboard));
         setCounter(prev=>1)
         setScore(0)
       } 
@@ -138,7 +115,6 @@ export default function Game({setObjectBoard}){
   };
   const gamePage = (
     <div className="game-container">
-      
       <h2>
         Question {counter}
         <br />

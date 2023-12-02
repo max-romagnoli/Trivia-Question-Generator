@@ -6,14 +6,14 @@ import Scoreboard from './scoreboard';
 import Game from './game';
 function App() {
 
-  const [objectBoard,setObjectBoard]=useState(0);
+  const [reload,setReload]=useState(true);
   return (
     <div className="App">
       <div className="left-side">
-          <Scoreboard objectBoard={objectBoard}/>
+          <Scoreboard reload={reload}/>
       </div>
       <div className="right-side">
-        <Game setObjectBoard={setObjectBoard}/>
+        <Game setReload={setReload}/>
       </div>
     </div>
   )
