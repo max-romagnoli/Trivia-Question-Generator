@@ -163,23 +163,31 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
   };
   const gamePage = (
     <div className="game-container">
-      <div className="question-box">
-        <h2>
+
+        <h5>
           Question {counter}
           <br />
-          Current score: {score}        
+          <br />
+
+          </h5>
+          <div className="question-box">
+         <h2>
+          Current score: 
+          <br />
+          {score}   
+               
         </h2>
+        
       </div>
+      <br />
+
       <h2>{question + "(" + questionValue + ")"}</h2>
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChangeAnswer} />
         <input type="submit" value="Submit" />
         
       </form>
-      <br />
-      <br />
 
-      <CurrentScore counter={counter} />
     </div>
   );
   
@@ -224,9 +232,16 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
         <br />
         You've made Steve upset :(
         <br/>
-        The correct Answer was: {rightAnswer}
         <br/>
-      </h3>
+        </h3>
+        <h5>
+        The correct answer was: 
+        </h5>
+        <h4>
+          {rightAnswer}
+        </h4>
+
+        <br/>
     </div>
     <br />
       <h2>  
