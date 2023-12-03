@@ -58,25 +58,38 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
 //    })
 //    .catch(error => console.error(error));
 //  }, []);
-  function sendData(){
-    let url = config.BACKEND_ADDRESS + '/scores';
-    let data = {username: name, value: score};
-    console.log("sending this: name: "+name+" score: "+score)
+function sendData(){
+  let url = config.BACKEND_ADDRESS + '/scores';
+  let data = {username: name, value: score};
+  console.log("sending this: name: "+name+" score: "+score)
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // After getting the response from the first request, send another request
     fetch(url, {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => setObjectBoard(data.scores))
     .catch((error) => {
       console.error('Error:', error);
-      setgameState(4)
     });
-
-  }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    setgameState(4)
+  });
+}
   function test(){
     let url = config.BACKEND_ADDRESS + '/scores';
     fetch(url, {
@@ -88,7 +101,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      setObjectBoard(data)
+      setObjectBoard(data.scores)
       // Update your leaderboard state here
     })
     .catch((error) => {
@@ -185,7 +198,6 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
           Question {counter}
           <br />
           <br />
-          <button onClick={test}>click me</button>
           </h5>
           <div className="question-box">
          <h2>
