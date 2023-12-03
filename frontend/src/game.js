@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './game.css';
 import axios from 'axios'
 import CurrentScore from './currentScore';
+import * as config from './index.js'
+
 
 export default function Game({ setObjectBoard, onGameStateChange }) {
   
@@ -28,6 +30,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
     return () => clearInterval(interval);
   }, [])
 
+
   const [counter, setCounter] = useState(1)
   const [answer, setAnswer] = useState('')
   const [name,setName]=useState('')
@@ -36,7 +39,6 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
   const [rightAnswer,setRightAnswer]=useState()
   const [score,setScore]=useState(0)
   const [questionValue, setQuestionValue]=useState(0)
-  let worth=0
   const handleChangeAnswer = (event) => {
     setAnswer(event.target.value);
   };
@@ -46,7 +48,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
 
 //  useEffect(() => {
 //    localStorage.clear();
-//    fetch('http://localhost:5000/triviaquestion')
+//    fetch(config.BACKEND_ADDRESS + '/triviaquestion')
 //    .then(response => response.json())
 //    .then(data => {
 //        setQuestion(data.triviaQuestion[0].question);
@@ -56,34 +58,68 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
 //    })
 //    .catch(error => console.error(error));
 //  }, []);
+  function sendData(){
+    let url = config.BACKEND_ADDRESS + '/scores';
+    let data = {username: name, value: score};
+    console.log("sending this: name: "+name+" score: "+score)
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch((error) => {
+      console.error('Error:', error);
+      setgameState(4)
+    });
 
-  const handleSubmit = (event) => {
-      setAnswer("")
-      //127.0.0.1:5000 --> for mac
-      //localhost:5000 --> for windows
-      fetch('http://127.0.0.1:5000/triviaquestion')
-        .then(response => response.json())
-        .then(data => {
-          setQuestion(data.triviaQuestion[0].question); 
-          setRightAnswer(data.triviaQuestion[0].answer);
-          console.log(data.triviaQuestion[0].answer)
-          setQuestionValue(data.triviaQuestion[0].value)
-        })
-        .catch(error => console.error(error))
-    if(gameState===0){
+  }
+  const fetchTriviaData = async () => {
+    // Fetch data from the API
+    const response = await fetch(config.BACKEND_ADDRESS + '/triviaquestion');
+    const data = await response.json();
+    setAnswer("")
+    // Update game state based on fetched data
+    setQuestion(data.triviaQuestion[0].question);
+    setRightAnswer(data.triviaQuestion[0].answer);
+    console.log(data.triviaQuestion[0].answer);
+    setQuestionValue(data.triviaQuestion[0]?.value || 100);  
+    // Set game state to 1 after fetching data
+    setgameState(1);
+  };
+  const handleSubmit = async(event) => {
+    if(gameState===0){ //currently in login
       console.log(name)
-      setgameState(1)
+      setgameState(3)
+      try {
+        await fetchTriviaData();
+      } catch (error) {
+        console.error('Error fetching trivia data:', error);
+        setgameState(4)
+      }
+
     }
-    if(gameState===1){    
+    if(gameState===1){//currently playing game
       console.log("Answer Given: "+answer)
       console.log("The Right Answer: '"+rightAnswer +"'")
       if(answer===rightAnswer){
         setScore(prev=>prev+questionValue)
         setCounter(prev=>prev+1)
-        
+        setgameState(3)
+        try {
+          await fetchTriviaData();
+        } catch (error) {
+          console.error('Error fetching trivia data:', error);
+          setgameState(4)
+        }
+
       }else{
         setgameState(2);
         onGameStateChange(2);
+        sendData()
 
         let newScore = {name: name, score: score};
         let retrievedLeaderboard;
@@ -103,6 +139,24 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
         localStorage.setItem('players', JSON.stringify(retrievedLeaderboard));
         setCounter(prev=>1)
         setScore(0)
+      } 
+    }
+    if(gameState===2){ //currently on lost page
+      setgameState(3)
+      try {
+        await fetchTriviaData();
+      } catch (error) {
+        console.error('Error fetching trivia data:', error);
+        setgameState(4)
+      }
+    }
+    if(gameState===4){ //fetching error
+      try {
+        await fetchTriviaData();
+        await setgameState(1)
+      } catch (error) {
+        console.error('Error fetching trivia data:', error);
+        setgameState(4)
       }
     }
     event.preventDefault();
@@ -112,6 +166,8 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
       <div className="question-box">
         <h2>
           Question {counter}
+          <br />
+          Current score: {score}        
         </h2>
       </div>
       <h2>{question + "(" + questionValue + ")"}</h2>
@@ -141,6 +197,20 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
       </form>
     </div>
   )
+  const noBackend = (
+    <div className="game-container">
+      <h2>My brother, you forgot to start the server 💀💀💀</h2>
+      <button onClick={handleSubmit}>Retry</button>
+    </div>
+  )
+  const loadingPage = (
+    <div className="game-container">
+      <h2>
+        Question is loading, be patient my friend
+        <br />
+      </h2>
+    </div>
+  )
   
   const gameEndPage = (
     <div className="game-container">
@@ -153,10 +223,12 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
       <h3>
         <br />
         You've made Steve upset :(
+        <br/>
+        The correct Answer was: {rightAnswer}
+        <br/>
       </h3>
     </div>
     <br />
-
       <h2>  
         Start a new game?
         </h2>      
@@ -170,8 +242,16 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
   return(
       <header className="App-header">
         <h1 style={style}>TRIVIA GAME</h1>
-        {gameState === 0 ? loginPage  : gameState === 1 ? gamePage  : gameEndPage }
-
+        {(() => {
+          switch(gameState) {
+            case 0: return loginPage;
+            case 1: return gamePage;
+            case 2: return gameEndPage;
+            case 3: return loadingPage;
+            case 4: return noBackend;
+            default: return noBackend;
+          }
+        })()}
       </header>
   )
 }

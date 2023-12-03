@@ -1,4 +1,7 @@
-from .conftest import client
+try:
+    from .conftest import client
+except ImportError:
+    from conftest import client
 
 
 def test_get_trivia_question(client):
