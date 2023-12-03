@@ -90,24 +90,7 @@ function sendData(){
     setgameState(4)
   });
 }
-  function test(){
-    let url = config.BACKEND_ADDRESS + '/scores';
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setObjectBoard(data.scores)
-      // Update your leaderboard state here
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-    });
-  }
+
   const fetchTriviaData = async () => {
     // Fetch data from the API
     const response = await fetch(config.BACKEND_ADDRESS + '/triviaquestion');
