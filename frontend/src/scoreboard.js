@@ -38,7 +38,7 @@ export default function Scoreboard({setObjectBoard,objectBoard}){
 
     return <>{objectBoard.map((item, index) => (
       <div key={index}>
-        <p>{item.username}:{item.score}</p>
+        <p>{item.username}: {item.score}</p>
       </div>
     ))}</>
   }

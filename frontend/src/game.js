@@ -260,10 +260,7 @@ function sendData(){
         Start a new game?
         </h2>      
         <br />
-      <button onClick={() => {
-        setgameState(1);
-        onGameStateChange(1);
-      }}>retry?</button>
+      <button onClick={handleSubmit}>retry?</button>
     </div>
   )
   return(
