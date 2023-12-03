@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <div className="left-side">
-          <Scoreboard objectBoard={objectBoard}/>
+          <Scoreboard setObjectBoard={setObjectBoard} objectBoard={objectBoard}/>
       </div>
       <div className="middle-section">
         <Game setObjectBoard={setObjectBoard} onGameStateChange={handleGameStateChange} />

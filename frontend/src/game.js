@@ -77,6 +77,24 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
     });
 
   }
+  function test(){
+    let url = config.BACKEND_ADDRESS + '/scores';
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setObjectBoard(data)
+      // Update your leaderboard state here
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
   const fetchTriviaData = async () => {
     // Fetch data from the API
     const response = await fetch(config.BACKEND_ADDRESS + '/triviaquestion');
@@ -135,8 +153,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
         // Push newScore into the players array
         retrievedLeaderboard.players.push(newScore);
         // Store the updated data back into localStorage
-        setObjectBoard(retrievedLeaderboard)
-        localStorage.setItem('players', JSON.stringify(retrievedLeaderboard));
+
         setCounter(prev=>1)
         setScore(0)
       } 
@@ -168,7 +185,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
           Question {counter}
           <br />
           <br />
-
+          <button onClick={test}>click me</button>
           </h5>
           <div className="question-box">
          <h2>
