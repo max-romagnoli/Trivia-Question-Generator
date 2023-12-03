@@ -1,13 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import './game.css';
+import axios from 'axios'
+import CurrentScore from './currentScore';
 import * as config from './index.js'
 
 
-//install react-router-dom
-export default function Game({setObjectBoard}){
-  //data struct to store and get player data
-  //Todo give gamestate a proper name
-  //gamestate: 0 loginPage, 1 gamepage, 2 lost page, 3 loading
+export default function Game({ setObjectBoard, onGameStateChange }) {
+  
+  const [style, setStyle] = useState({
+    //fontSize: '8em',
+    color: 'white',
+    textShadow: '0 0 10px white',
+    //border: '2px solid white',
+    fontStyle: 'italic', // Added this line to set the initial font style
+  });
+  useEffect(() => {
+    // Start the flashing interval
+    const interval = setInterval(() => {
+
+      setStyle((prevStyle) => ({
+        color: prevStyle.color === '#8e3dff' ? 'white' : '#8e3dff',
+        textShadow: prevStyle.textShadow === '0 0 10px #8e3dff' ? '0 0 10px white' : '0 0 10px #8e3dff',
+        fontStyle: prevStyle.fontStyle === 'italic' ? 'italic' : 'italic', // Toggle between italic and normal
+
+      }))
+    }, 900);
+
+    // Cleanup: Clear the interval when the component is unmounted
+    return () => clearInterval(interval);
+  }, [])
+
+
   const [counter, setCounter] = useState(1)
   const [answer, setAnswer] = useState('')
   const [name,setName]=useState('')
@@ -94,8 +117,10 @@ export default function Game({setObjectBoard}){
         }
 
       }else{
-        setgameState(2)
+        setgameState(2);
+        onGameStateChange(2);
         sendData()
+
         let newScore = {name: name, score: score};
         let retrievedLeaderboard;
 
@@ -138,24 +163,42 @@ export default function Game({setObjectBoard}){
   };
   const gamePage = (
     <div className="game-container">
-      
-      <h2>
-        Question {counter}
-        <br />
-        Current score: {score}
-      </h2>
-      <h2>{question }</h2>
-      <h3>{"Value: " + questionValue}</h3>
+
+        <h5>
+          Question {counter}
+          <br />
+          <br />
+
+          </h5>
+          <div className="question-box">
+         <h2>
+          Current score: 
+          <br />
+          {score}   
+               
+        </h2>
+        
+      </div>
+      <br />
+
+      <h2>{question + "(" + questionValue + ")"}</h2>
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChangeAnswer} />
         <input type="submit" value="Submit" />
+        
       </form>
+
     </div>
-  )
+  );
   
   const loginPage = (
     <div className="game-container">
-      <h2>What is your username?:</h2>
+      <br />
+      <br />
+      <br />
+      <br />
+      <h2>What is your username:</h2>
+      <br />
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={name} onChange={handleChangeName} />
         <input type="submit" value="Submit" />
@@ -179,22 +222,41 @@ export default function Game({setObjectBoard}){
   
   const gameEndPage = (
     <div className="game-container">
-      <h2>
-        Wrong Answer 😭
-        <br/>
-        The correct Answer was: {rightAnswer}
-        <br/>
-        <br />
-        Start a new game?
-
+       <br />
+      <div className="wrong-box">
+        <h2>
+        Wrong Answer
         <br />
       </h2>
-      <button onClick={handleSubmit}>retry?</button>
+      <h3>
+        <br />
+        You've made Steve upset :(
+        <br/>
+        <br/>
+        </h3>
+        <h5>
+        The correct answer was: 
+        </h5>
+        <h4>
+          {rightAnswer}
+        </h4>
+
+        <br/>
+    </div>
+    <br />
+      <h2>  
+        Start a new game?
+        </h2>      
+        <br />
+      <button onClick={() => {
+        setgameState(1);
+        onGameStateChange(1);
+      }}>retry?</button>
     </div>
   )
   return(
       <header className="App-header">
-        <h1>TRIVIA GAME</h1>
+        <h1 style={style}>TRIVIA GAME</h1>
         {(() => {
           switch(gameState) {
             case 0: return loginPage;

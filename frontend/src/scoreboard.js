@@ -5,10 +5,20 @@ import * as config from './index.js'
 
 export default function Scoreboard({objectBoard}){
 
+  /*function calculateTotalScore() {
+    if (!objectBoard) {
+      return 0;
+    }
+
+    return objectBoard.players((total, player) => total + player.score, 0);
+  }*/
+
   function renderObjectBoard(){
     if(objectBoard===0){
       return(<></>)
     }
+    
+    
     // Reverse the array to display newest highscores first
     const reversedPlayers = objectBoard.players.slice().reverse();
 
@@ -21,12 +31,11 @@ export default function Scoreboard({objectBoard}){
   }
   return(
     <div className='scoreboard'>
-    <p1>High Scores
+    <p1>High Scores</p1>
     <br />
     <br />
-
-    </p1>
-    <>{renderObjectBoard()}</>
+  
+    <p2>{renderObjectBoard()}</p2>
     </div>
   )
 }
