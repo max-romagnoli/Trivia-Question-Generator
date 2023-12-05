@@ -31,7 +31,10 @@ function App() {
         <img src={rightImage} alt={objectBoard} className="small-image"/>
       </div>
     </div>
+    
   )
 }
 
 export default App;
+
+//        You've made Steve upset :(

@@ -105,6 +105,7 @@ function sendData(){
     setgameState(1);
   };
   const handleSubmit = async(event) => {
+    onGameStateChange(1)
     if(gameState===0){ //currently in login
       console.log(name)
       setgameState(3)
@@ -239,25 +240,24 @@ function sendData(){
         <h2>
         Wrong Answer
         <br />
-      </h2>
-      <h3>
         <br />
-        You've made Steve upset :(
+        </h2>
+        <br />
+        <div className="wrong-circle-container">
+        <div className="wrong-circle">
+          X
+        </div>
+        </div>
         <br/>
-        <br/>
-        </h3>
         <h5>
+        <br />
         The correct answer was: 
         </h5>
         <h4>
           {rightAnswer}
         </h4>
-
-        <br/>
-    </div>
-    <br />
+      </div>
       <h2>  
-        Start a new game?
         </h2>      
         <br />
       <button onClick={handleSubmit}>retry?</button>
