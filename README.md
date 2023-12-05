@@ -8,7 +8,7 @@ This application is developed using Flask on the backend and React on the fronte
 2. Or... build it locally following the below steps.
 
 <b>Diary: [Click here to access the diary](https://gitlab.scss.tcd.ie/group-16/backend/blob/22c588c97fbd64bf03a332ea6d431c3120613a9c/diary.md)</b>, 
-or navigate to `backend/diary.md`
+or in the repo navigate to `backend/diary.md`
 
 ## Start backend
 
