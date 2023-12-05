@@ -4,16 +4,31 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import Scoreboard from './scoreboard';
 import Game from './game';
+import CurrentScore from './currentScore';
+
 function App() {
 
-  const [reload,setReload]=useState(true);
+  const [objectBoard,setObjectBoard]=useState(0);
+  const [rightImage, setRightImage] = useState('/images/happySteve.png');
+
+  const handleGameStateChange = (newState) => {
+    if (newState === 2) {
+      setRightImage('/images/upsetSteve.png');
+    } else {
+      setRightImage('/images/happySteve.png');
+    }
+  };
+
   return (
     <div className="App">
       <div className="left-side">
-          <Scoreboard reload={reload}/>
+          <Scoreboard setObjectBoard={setObjectBoard} objectBoard={objectBoard}/>
+      </div>
+      <div className="middle-section">
+        <Game setObjectBoard={setObjectBoard} onGameStateChange={handleGameStateChange} />
       </div>
       <div className="right-side">
-        <Game setReload={setReload}/>
+        <img src={rightImage} alt={objectBoard} className="small-image"/>
       </div>
     </div>
   )

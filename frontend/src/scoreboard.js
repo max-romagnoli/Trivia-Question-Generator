@@ -3,34 +3,52 @@ import './scoreboard.css';
 import * as config from './index.js'
 
 
-export default function Scoreboard({reload}){
-  const [scores, setScores] = useState([]);
+export default function Scoreboard({setObjectBoard,objectBoard}){
+
+  /*function calculateTotalScore() {
+    if (!objectBoard) {
+      return 0;
+    }
+
+    return objectBoard.players((total, player) => total + player.score, 0);
+  }*/
   useEffect(() => {
-    fetch(config.BACKEND_ADDRESS + '/scores')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.scores); // This will print the scores to the console
-        setScores(data.scores);
-      })
-      .then(console.log("done"))
-      .catch(error => console.error('Failed to fetch scores:', error));
-  }, [reload]);
+    let url = config.BACKEND_ADDRESS + '/scores';
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      setObjectBoard(data.scores)
+      console.log(data.scores)
+      // Update your leaderboard state here
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}, []);
   function renderObjectBoard(){
+    if(objectBoard===0){
+      return(<></>)
+    }
     // Reverse the array to display newest highscores first
-    return <>{scores.map((player, index) => (
+
+    return <>{objectBoard.map((item, index) => (
       <div key={index}>
-        <span>{player.username}: </span>
-        <span>{player.score}</span>
+        <p>{item.username}: {item.score}</p>
       </div>
     ))}</>
   }
   return(
     <div className='scoreboard'>
-    <p1>High Scores
+    <p1>High Scores</p1>
     <br />
     <br />
-    </p1>
-    <>{renderObjectBoard()}</>
+  
+    <p2>{renderObjectBoard()}</p2>
     </div>
   )
 }
