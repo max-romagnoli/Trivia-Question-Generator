@@ -105,6 +105,7 @@ function sendData(){
     setgameState(1);
   };
   const handleSubmit = async(event) => {
+    onGameStateChange(1)
     if(gameState===0){ //currently in login
       console.log(name)
       setgameState(3)
