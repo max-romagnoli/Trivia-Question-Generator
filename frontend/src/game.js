@@ -58,25 +58,39 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
 //    })
 //    .catch(error => console.error(error));
 //  }, []);
-  function sendData(){
-    let url = config.BACKEND_ADDRESS + '/scores';
-    let data = {username: name, value: score};
-    console.log("sending this: name: "+name+" score: "+score)
+function sendData(){
+  let url = config.BACKEND_ADDRESS + '/scores';
+  let data = {username: name, value: score};
+  console.log("sending this: name: "+name+" score: "+score)
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // After getting the response from the first request, send another request
     fetch(url, {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => setObjectBoard(data.scores))
     .catch((error) => {
       console.error('Error:', error);
-      setgameState(4)
     });
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    setgameState(4)
+  });
+}
 
-  }
   const fetchTriviaData = async () => {
     // Fetch data from the API
     const response = await fetch(config.BACKEND_ADDRESS + '/triviaquestion');
@@ -135,8 +149,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
         // Push newScore into the players array
         retrievedLeaderboard.players.push(newScore);
         // Store the updated data back into localStorage
-        setObjectBoard(retrievedLeaderboard)
-        localStorage.setItem('players', JSON.stringify(retrievedLeaderboard));
+
         setCounter(prev=>1)
         setScore(0)
       } 
@@ -168,7 +181,6 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
           Question {counter}
           <br />
           <br />
-
           </h5>
           <div className="question-box">
          <h2>
@@ -248,10 +260,7 @@ export default function Game({ setObjectBoard, onGameStateChange }) {
         Start a new game?
         </h2>      
         <br />
-      <button onClick={() => {
-        setgameState(1);
-        onGameStateChange(1);
-      }}>retry?</button>
+      <button onClick={handleSubmit}>retry?</button>
     </div>
   )
   return(
