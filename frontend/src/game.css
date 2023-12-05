@@ -17,9 +17,9 @@
   
   .App-header h1 {
     font-size: 6em;
-
+    max-width: fit-content;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 70px;
   }
   
   .App-header h2 {
@@ -45,7 +45,7 @@
   }
   
   .question-box {
-    width: 190px;
+    width: 320px;
     background-color: #8e3dff;
     padding: 10px;
     border-radius: 10px;

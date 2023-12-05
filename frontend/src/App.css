@@ -24,6 +24,11 @@ body {
 }
 
 .right-side {
+  width: 5%;
+  padding: 15px;
+}
+
+.right-side {
   width: 15%;
   display: flex;
   justify-content: flex-end; /* Align content to the right */

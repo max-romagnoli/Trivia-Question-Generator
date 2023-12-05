@@ -185,16 +185,15 @@ function sendData(){
           </h5>
           <div className="question-box">
          <h2>
-          Current score: 
-          <br />
-          {score}   
-               
+          Current score: {score}
+           <br/>
+           Question value: {questionValue}
         </h2>
         
       </div>
       <br />
 
-      <h2>{question + "(" + questionValue + ")"}</h2>
+      <h2>{question}</h2>
       <form onSubmit={handleSubmit} className="forms">
         <input type="text" value={answer} onChange={handleChangeAnswer} />
         <input type="submit" value="Submit" />
