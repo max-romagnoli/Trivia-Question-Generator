@@ -1,5 +1,5 @@
-# Trivia Question Generator
-<b>Welcome to the repo of Trivia Question Generator!</b>
+# Trivia Game
+<b>Welcome to the repo of our Trivia Game!</b>
 
 This application is developed using Flask on the backend and React on the frontend.
 
