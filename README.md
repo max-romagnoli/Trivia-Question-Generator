@@ -8,7 +8,7 @@ This application is developed using Flask on the backend and React on the fronte
 | Name           | Link                                                                                                                                                         |
 |----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Deployed app   | [https://group-16-9bd3630a5775.autoidleapp.com/](https://group-16-9bd3630a5775.autoidleapp.com/)                                                             |
-| Diary          | [Link to Diary](https://gitlab.scss.tcd.ie/group-16/backend/blob/22c588c97fbd64bf03a332ea6d431c3120613a9c/diary.md) (or navigate to `backend/diary.md` in the repo) |
+| Diary          | [Link to Diary](https://gitlab.scss.tcd.ie/group-16/backend/blob/f3336959e9edc7d095dce72a410a953dc4013d36/diary.md) (or navigate to `backend/diary.md` in the repo) |
 | Frontend Video | [HEANet Link](https://media.heanet.ie/page/f3a831df337840a4924f24fadfd3799f)                                                                                 |
 | Backend Video  | [HEANet Link](https://media.heanet.ie/page/0b1d688ede2b4129af08077e9dd2482a)                                                                          |
 
