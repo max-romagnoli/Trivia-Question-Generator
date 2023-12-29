@@ -1,21 +1,7 @@
-# Group 16 - Trivia Game
-<b>Welcome to the repo for our Trivia Game!</b>
+# Trivia Question Generator
+<b>Welcome to the repo for Trivia Question Generator!</b>
 
 This application is developed using Flask on the backend and React on the frontend.
-
-## Links
-
-| Name           | Link                                                                                                                                                         |
-|----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Deployed app   | [https://group-16-9bd3630a5775.autoidleapp.com/](https://group-16-9bd3630a5775.autoidleapp.com/)                                                             |
-| Diary          | [Link to Diary](https://gitlab.scss.tcd.ie/group-16/backend/blob/f3336959e9edc7d095dce72a410a953dc4013d36/diary.md) (or navigate to `backend/diary.md` in the repo) |
-| Frontend Video | [HEANet Link](https://media.heanet.ie/page/f3a831df337840a4924f24fadfd3799f)                                                                                 |
-| Backend Video  | [HEANet Link](https://media.heanet.ie/page/0b1d688ede2b4129af08077e9dd2482a)                                                                          |
-
-
-### <b>To run our app you have two options: </b>
-1. <mark>Simply use this link</mark>: <b>https://group-16-9bd3630a5775.autoidleapp.com/ </b>
-2. Or... build it locally following the below steps.
 
 
 ## Start backend
